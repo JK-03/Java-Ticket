@@ -4,19 +4,31 @@
  */
 package javaticket;
 
+import GestorUsuarios.UsuariosInfo;
+import java.util.ArrayList;
+
 /**
  *
  * @author jenniferbueso
  */
 public class PantallaInicio extends javax.swing.JFrame {
-
-    /**
-     * Creates new form PantallaInicio
-     */
-    public PantallaInicio() {
+    ArrayList<UsuariosInfo> listaUsuarios;
+    
+    public PantallaInicio(ArrayList<UsuariosInfo> listaUsuariosExterna) {
+        inicializarListaUsuarios(listaUsuariosExterna);
+        
         initComponents();
     }
 
+    private void inicializarListaUsuarios(ArrayList<UsuariosInfo> listaUsuariosExterna) {
+        listaUsuarios = (listaUsuariosExterna == null) ? new ArrayList<>() : listaUsuariosExterna;
+        
+        if (listaUsuariosExterna==null) {
+            // Agregar usuario predeterminado
+            listaUsuarios.add(new UsuariosInfo("Administrador", "admin", "supersecreto", 20) {});
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +55,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         });
         jPanel1.add(BotonLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 320, 60));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaticket/Elementos/PantallaInicio.png"))); // NOI18N
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/PantallaInicio.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -53,7 +65,7 @@ public class PantallaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLogInMouseClicked
-        LogIn logIn = new LogIn();
+        LogIn logIn = new LogIn(listaUsuarios);
         logIn.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonLogInMouseClicked
@@ -88,7 +100,7 @@ public class PantallaInicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaInicio().setVisible(true);
+                new PantallaInicio(null).setVisible(true);
             }
         });
     }

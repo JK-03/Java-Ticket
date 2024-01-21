@@ -8,8 +8,7 @@ package javaticket;
  *
  * @author jenniferbueso
  */
-public class Main_JavaTicket {
-    
+public class Main {
     public static void main(String[] args) {
         PantallaInicio pantallaInicio = new PantallaInicio(null);
         pantallaInicio.setVisible(true);

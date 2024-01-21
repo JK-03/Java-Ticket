@@ -4,16 +4,20 @@
  */
 package javaticket;
 
+import GestorUsuarios.UsuariosInfo;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jenniferbueso
  */
 public class LogIn extends javax.swing.JFrame {
-
-    /**
-     * Creates new form LogIn
-     */
-    public LogIn() {
+    ArrayList<UsuariosInfo> listaUsuarios;
+    
+    public LogIn(ArrayList<UsuariosInfo> listaUsuariosExterna) {
+        listaUsuarios = listaUsuariosExterna;
+        
         initComponents();
     }
 
@@ -27,6 +31,7 @@ public class LogIn extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        BotonIngresar = new javax.swing.JLabel();
         UsuarioField = new javax.swing.JTextField();
         ContraField = new javax.swing.JPasswordField();
         Fondo = new javax.swing.JLabel();
@@ -34,6 +39,14 @@ public class LogIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BotonIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonIngresarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(BotonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 280, 50));
 
         UsuarioField.setBackground(new java.awt.Color(255, 204, 231));
         UsuarioField.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
@@ -46,8 +59,8 @@ public class LogIn extends javax.swing.JFrame {
         ContraField.setBorder(null);
         jPanel1.add(ContraField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, 270, 40));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/javaticket/Elementos/LogIn.png"))); // NOI18N
-        jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/LogIn.png"))); // NOI18N
+        jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 590));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,6 +77,41 @@ public class LogIn extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BotonIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonIngresarMouseClicked
+        int indiceUsuario = -1;
+        String nombreUsuario = UsuarioField.getText();
+
+        // Buscar el usuario en la lista
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getUsuario().equals(nombreUsuario)) {
+                indiceUsuario = i;
+            }
+        }
+        
+        if (indiceUsuario != -1) {
+            //Verificar si la contraseña es correcta
+            if (listaUsuarios.get(indiceUsuario).getContra().equals(ContraField.getText())) {
+                JOptionPane.showMessageDialog( null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!","Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "La contraseña ingresada es incorrecta. Por favor, inténtelo nuevamente.","Contraseña Incorrecta", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else {
+          //Salida de pantalla si el usuario no es existente
+          JOptionPane.showMessageDialog( null,  "El usuario '" + nombreUsuario + "' no existe. Por favor, intente con un usuario válido.","Usuario no Existe", JOptionPane.ERROR_MESSAGE);
+        }
+            
+    }//GEN-LAST:event_BotonIngresarMouseClicked
+
+    private boolean verificarUsuarioExistente(String nombreUsuario) {
+        for (UsuariosInfo usuario : listaUsuarios) {
+            if (usuario.getUsuario().equals(nombreUsuario)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -94,12 +142,13 @@ public class LogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogIn().setVisible(true);
+                new LogIn(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BotonIngresar;
     private javax.swing.JPasswordField ContraField;
     private javax.swing.JLabel Fondo;
     private javax.swing.JTextField UsuarioField;
