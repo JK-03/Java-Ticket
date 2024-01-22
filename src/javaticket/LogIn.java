@@ -4,6 +4,7 @@
  */
 package javaticket;
 
+import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -13,10 +14,12 @@ import javax.swing.JOptionPane;
  * @author jenniferbueso
  */
 public class LogIn extends javax.swing.JFrame {
+    private GestionarUsuarios gestionarUsuarios;
     ArrayList<UsuariosInfo> listaUsuarios;
     
     public LogIn(ArrayList<UsuariosInfo> listaUsuariosExterna) {
         listaUsuarios = listaUsuariosExterna;
+        gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
         
         initComponents();
     }
@@ -49,12 +52,13 @@ public class LogIn extends javax.swing.JFrame {
         jPanel1.add(BotonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 280, 50));
 
         UsuarioField.setBackground(new java.awt.Color(255, 204, 231));
-        UsuarioField.setFont(new java.awt.Font("Georgia", 0, 18)); // NOI18N
+        UsuarioField.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
         UsuarioField.setForeground(new java.awt.Color(0, 0, 0));
         UsuarioField.setBorder(null);
         jPanel1.add(UsuarioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, 270, 40));
 
         ContraField.setBackground(new java.awt.Color(255, 204, 231));
+        ContraField.setFont(new java.awt.Font("Avenir Next Condensed", 1, 13)); // NOI18N
         ContraField.setForeground(new java.awt.Color(0, 0, 0));
         ContraField.setBorder(null);
         jPanel1.add(ContraField, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, 270, 40));
@@ -80,38 +84,28 @@ public class LogIn extends javax.swing.JFrame {
     private void BotonIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonIngresarMouseClicked
         int indiceUsuario = -1;
         String nombreUsuario = UsuarioField.getText();
-
-        // Buscar el usuario en la lista
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (listaUsuarios.get(i).getUsuario().equals(nombreUsuario)) {
-                indiceUsuario = i;
-            }
-        }
+        String contra = ContraField.getText();
         
-        if (indiceUsuario != -1) {
-            //Verificar si la contraseña es correcta
-            if (listaUsuarios.get(indiceUsuario).getContra().equals(ContraField.getText())) {
-                JOptionPane.showMessageDialog( null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!","Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "La contraseña ingresada es incorrecta. Por favor, inténtelo nuevamente.","Contraseña Incorrecta", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        } else {
-          //Salida de pantalla si el usuario no es existente
-          JOptionPane.showMessageDialog( null,  "El usuario '" + nombreUsuario + "' no existe. Por favor, intente con un usuario válido.","Usuario no Existe", JOptionPane.ERROR_MESSAGE);
+        int resultado = gestionarUsuarios.logIn(nombreUsuario, contra);
+        System.out.println(resultado);
+        
+        
+        switch (resultado) {
+        case 0:
+            JOptionPane.showMessageDialog(null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!", "Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios);
+            menuPrincipal.setVisible(true);
+            this.setVisible(false);
+            break;
+        case 1:
+            JOptionPane.showMessageDialog(null, "El usuario ingresado no existe. Por favor, inténtelo nuevamente.", "Usuario Inexistente", JOptionPane.ERROR_MESSAGE);
+            break;
+        case 2:
+            JOptionPane.showMessageDialog(null, "La contraseña ingresada es incorrecta. Por favor, inténtelo nuevamente.", "Contraseña Incorrecta", JOptionPane.ERROR_MESSAGE);
+            break;
         }
-            
     }//GEN-LAST:event_BotonIngresarMouseClicked
-
-    private boolean verificarUsuarioExistente(String nombreUsuario) {
-        for (UsuariosInfo usuario : listaUsuarios) {
-            if (usuario.getUsuario().equals(nombreUsuario)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
+   
     /**
      * @param args the command line arguments
      */

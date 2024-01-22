@@ -4,6 +4,7 @@
  */
 package javaticket;
 
+import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
 
