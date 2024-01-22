@@ -18,13 +18,13 @@ public class GestionarUsuarios {
     }
     
     //Funcion Recursiva
-    public boolean agregarUsuario(String nombreCompleto, String usuario, String contra, int edad) {
-        return agregarUsuario(nombreCompleto, usuario, contra, edad, 0);
+    public boolean agregarUsuario(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario) {
+        return agregarUsuario(nombreCompleto, usuario, contra, edad, tipoUsuario, 0);
     }
     
-    private boolean agregarUsuario(String nombreCompleto, String usuario, String contra, int edad, int index) {
+    private boolean agregarUsuario(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario, int index) {
         if (index == listaUsuarios.size()) {
-            UsuariosInfo nuevoUsuario = new UsuariosInfo(nombreCompleto, usuario, contra, edad) {};
+            UsuariosInfo nuevoUsuario = new UsuariosInfo(nombreCompleto, usuario, contra, edad, tipoUsuario) {};
             listaUsuarios.add(nuevoUsuario);
             return true;
         }
@@ -34,7 +34,7 @@ public class GestionarUsuarios {
             return false;
         }
 
-        return agregarUsuario(nombreCompleto, usuario, contra, edad, index + 1);
+        return agregarUsuario(nombreCompleto, usuario, contra, edad, tipoUsuario, index + 1);
     }
     
     //Función Recursiva
@@ -57,5 +57,23 @@ public class GestionarUsuarios {
         }
         
         return logIn(usuario, contra, index + 1);
+    }
+    
+    //Función Recursiva
+    public String getTipoUsuario(String nombreUsuario) {
+        return getTipoUsuarioRecursivo(nombreUsuario, 0);
+    }
+    
+    private String getTipoUsuarioRecursivo(String nombreUsuario, int index) {
+        if (index == listaUsuarios.size()) {
+            return null;
+        }
+
+        UsuariosInfo usuarioExistente = listaUsuarios.get(index);
+        if (usuarioExistente.getUsuario().equals(nombreUsuario)) {
+            return usuarioExistente.getTipoUsuario();
+        }
+
+        return getTipoUsuarioRecursivo(nombreUsuario, index + 1);
     }
 }

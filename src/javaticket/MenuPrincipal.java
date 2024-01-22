@@ -14,11 +14,17 @@ import javax.swing.JOptionPane;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
+    private String nombreLabel;
     
-    public MenuPrincipal(ArrayList<UsuariosInfo> listaUsuariosExterna) {
+    public MenuPrincipal(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel) {
         listaUsuarios = listaUsuariosExterna;
+        this.nombreLabel = nombreLabel;
         
         initComponents();
+        
+        UsuarioLabel.setText(nombreLabel);
+        
+        BotonEventos.setEnabled(false);
     }
 
     /**
@@ -78,7 +84,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         UsuarioLabel.setForeground(new java.awt.Color(0, 0, 0));
         UsuarioLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         UsuarioLabel.setText("Usuario");
-        jPanel1.add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 350, 60));
+        jPanel1.add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 350, 60));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/MenuPrincipal.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -99,7 +105,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEventosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosMouseClicked
-        // TODO add your handling code here:
+        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel);
+        administracionEventos.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonEventosMouseClicked
 
     private void BotonReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonReportesMouseClicked
@@ -107,7 +115,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonReportesMouseClicked
 
     private void BotonUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonUsuariosMouseClicked
-        AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios);
+        AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel);
         administracionUsuarios.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonUsuariosMouseClicked
@@ -149,7 +157,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(null).setVisible(true);
+                new MenuPrincipal(null, null).setVisible(true);
             }
         });
     }

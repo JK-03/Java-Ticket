@@ -13,9 +13,11 @@ import java.util.ArrayList;
  */
 public class AdministracionUsuarios extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
+    private String nombreLabel;
     
-    public AdministracionUsuarios(ArrayList<UsuariosInfo> listaUsuariosExterna) {
+    public AdministracionUsuarios(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel) {
         listaUsuarios = listaUsuariosExterna;
+        this.nombreLabel = nombreLabel;
         
         initComponents();
     }
@@ -87,10 +89,13 @@ public class AdministracionUsuarios extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-
+        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel);
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
@@ -135,7 +140,7 @@ public class AdministracionUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministracionUsuarios(null).setVisible(true);
+                new AdministracionUsuarios(null, null).setVisible(true);
             }
         });
     }

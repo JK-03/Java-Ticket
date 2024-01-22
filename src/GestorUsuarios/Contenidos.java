@@ -10,8 +10,8 @@ package GestorUsuarios;
  */
 public class Contenidos extends UsuariosInfo {
 
-    public Contenidos(String nombreCompleto, String usuario, String contra, int edad) {
-        super(nombreCompleto, usuario, contra, edad);
+    public Contenidos(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario) {
+        super(nombreCompleto, usuario, contra, edad, tipoUsuario);
     }
-    
+
 }

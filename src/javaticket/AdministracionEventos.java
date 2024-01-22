@@ -4,17 +4,23 @@
  */
 package javaticket;
 
+import GestorUsuarios.UsuariosInfo;
+import java.util.ArrayList;
+
 /**
  *
  * @author jenniferbueso
  */
 public class AdministracionEventos extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AdministracionEventos
-     */
-    public AdministracionEventos() {
+    private ArrayList<UsuariosInfo> listaUsuarios;
+    private String nombreLabel;
+    
+    public AdministracionEventos(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel) {
+        listaUsuarios = listaUsuariosExterna;
+        this.nombreLabel = nombreLabel;
+        
         initComponents();
+        
     }
 
     /**
@@ -93,6 +99,7 @@ public class AdministracionEventos extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
@@ -112,7 +119,9 @@ public class AdministracionEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonVerMouseClicked
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-
+        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel);
+        menuPrincipal.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     /**
@@ -145,7 +154,7 @@ public class AdministracionEventos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministracionEventos().setVisible(true);
+                new AdministracionEventos(null, null).setVisible(true);
             }
         });
     }

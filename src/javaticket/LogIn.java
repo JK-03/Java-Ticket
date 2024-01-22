@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class LogIn extends javax.swing.JFrame {
     private GestionarUsuarios gestionarUsuarios;
     ArrayList<UsuariosInfo> listaUsuarios;
+    private String nombreLabel;
     
     public LogIn(ArrayList<UsuariosInfo> listaUsuariosExterna) {
         listaUsuarios = listaUsuariosExterna;
@@ -85,15 +86,14 @@ public class LogIn extends javax.swing.JFrame {
         int indiceUsuario = -1;
         String nombreUsuario = UsuarioField.getText();
         String contra = ContraField.getText();
+        nombreLabel = nombreUsuario;
         
         int resultado = gestionarUsuarios.logIn(nombreUsuario, contra);
-        System.out.println(resultado);
-        
         
         switch (resultado) {
         case 0:
             JOptionPane.showMessageDialog(null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!", "Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
-            MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios);
+            MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel);
             menuPrincipal.setVisible(true);
             this.setVisible(false);
             break;

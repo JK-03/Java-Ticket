@@ -10,8 +10,8 @@ package GestorUsuarios;
  */
 public class Limitado extends UsuariosInfo{
 
-    public Limitado(String nombreCompleto, String usuario, String contra, int edad) {
-        super(nombreCompleto, usuario, contra, edad);
+    public Limitado(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario) {
+        super(nombreCompleto, usuario, contra, edad, tipoUsuario);
     }
 
 }

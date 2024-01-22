@@ -26,7 +26,9 @@ public class PantallaInicio extends javax.swing.JFrame {
         
         if (listaUsuariosExterna==null) {
             // Agregar usuario predeterminado
-            listaUsuarios.add(new UsuariosInfo("Administrador", "admin", "supersecreto", 20) {});
+            listaUsuarios.add(new UsuariosInfo("Administrador", "admin", "supersecreto", 20, "ADMINISTRADOR") {});
+            listaUsuarios.add(new UsuariosInfo("Limitado", "limitado", "12345", 20, "LIMITADO") {});
+            listaUsuarios.add(new UsuariosInfo("Contenido", "contenido", "12345", 20, "CONTENIDO") {});
         }
     }
     

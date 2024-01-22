@@ -15,7 +15,7 @@ public abstract class UsuariosInfo {
     private int edad;
     private ArrayList<UsuariosInfo> listaUsuarios = new ArrayList<>();
     
-    public UsuariosInfo(String nombreCompleto, String usuario, String contra, int edad){
+    public UsuariosInfo(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario){
         this.nombreCompleto = nombreCompleto;
         this.usuario = usuario;
         this.contra = contra;
