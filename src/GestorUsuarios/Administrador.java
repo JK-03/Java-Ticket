@@ -10,8 +10,8 @@ package GestorUsuarios;
  */
 public final class Administrador extends UsuariosInfo {
 
-    public Administrador(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario) {
-        super(nombreCompleto, usuario, contra, edad, tipoUsuario);
+    public Administrador(String nombreCompleto, String usuario, String contra, int edad) {
+        super(nombreCompleto, usuario, contra, edad);
     }
     
 }

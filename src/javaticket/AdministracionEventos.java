@@ -14,10 +14,12 @@ import java.util.ArrayList;
 public class AdministracionEventos extends javax.swing.JFrame {
     private ArrayList<UsuariosInfo> listaUsuarios;
     private String nombreLabel;
+    private UsuariosInfo usuarioLogueado;
     
-    public AdministracionEventos(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel) {
+    public AdministracionEventos(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
         this.nombreLabel = nombreLabel;
+        this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
         
@@ -74,7 +76,7 @@ public class AdministracionEventos extends javax.swing.JFrame {
                 BotonEliminarMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 170, 150));
+        jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 170, 150));
 
         BotonCrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonCrear.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,7 +84,7 @@ public class AdministracionEventos extends javax.swing.JFrame {
                 BotonCrearMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 180, 150));
+        jPanel1.add(BotonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 170, 150));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/administrarEventos.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -102,10 +104,6 @@ public class AdministracionEventos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotonCrearMouseClicked
-
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonEliminarMouseClicked
@@ -119,10 +117,14 @@ public class AdministracionEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonVerMouseClicked
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel);
+        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);
         menuPrincipal.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
+
+    private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonCrearMouseClicked
 
     /**
      * @param args the command line arguments
@@ -154,7 +156,7 @@ public class AdministracionEventos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministracionEventos(null, null).setVisible(true);
+                new AdministracionEventos(null, null, null).setVisible(true);
             }
         });
     }

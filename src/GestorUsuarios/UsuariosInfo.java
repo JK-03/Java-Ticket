@@ -13,9 +13,8 @@ import java.util.ArrayList;
 public abstract class UsuariosInfo {
     private String usuario, contra, tipoUsuario, nombreCompleto;
     private int edad;
-    private ArrayList<UsuariosInfo> listaUsuarios = new ArrayList<>();
     
-    public UsuariosInfo(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario){
+    public UsuariosInfo(String nombreCompleto, String usuario, String contra, int edad){
         this.nombreCompleto = nombreCompleto;
         this.usuario = usuario;
         this.contra = contra;
@@ -65,33 +64,6 @@ public abstract class UsuariosInfo {
         this.edad = edad;
     }
 
-    public ArrayList<UsuariosInfo> getListaUsuarios() {
-        return listaUsuarios;
-    }
-
-    public void setListaUsuarios(ArrayList<UsuariosInfo> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
-    }
-    
-    //Funcion recursiva
-    public boolean agregarUsuario(String usuario, String contra, String tipoUsuario, int index) {
-        if (index == listaUsuarios.size()) {
-            //UsuariosInfo nuevoUsuario = new UsuariosInfo(usuario, contra);
-            //listaUsuarios.add(nuevoUsuario);
-            return true;
-        }
-
-        // Verificar si el usuario ya existe en la lista
-        UsuariosInfo usuarioExistente = listaUsuarios.get(index);
-        if (usuarioExistente.getUsuario().equals(usuario)) {
-            // Si el usuario ya existe, retornar false
-            return false;
-        }
-
-        // Si el usuario no existe, continuar con el siguiente usuario en la lista
-        return agregarUsuario(usuario, contra, tipoUsuario, index + 1);
-        }
-    
-    }
+}
 
     

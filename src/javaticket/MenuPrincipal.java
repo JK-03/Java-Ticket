@@ -4,6 +4,7 @@
  */
 package javaticket;
 
+import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -15,16 +16,18 @@ import javax.swing.JOptionPane;
 public class MenuPrincipal extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
     private String nombreLabel;
+    private GestionarUsuarios gestionarUsuarios;
+    private UsuariosInfo usuarioLogueado;
     
-    public MenuPrincipal(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel) {
+    public MenuPrincipal(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
         this.nombreLabel = nombreLabel;
+        gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
+        this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
         
         UsuarioLabel.setText(nombreLabel);
-        
-        BotonEventos.setEnabled(false);
     }
 
     /**
@@ -37,6 +40,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        BotonSalir = new javax.swing.JLabel();
         BotonRegresar = new javax.swing.JLabel();
         BotonUsuarios = new javax.swing.JLabel();
         BotonReportes = new javax.swing.JLabel();
@@ -47,6 +51,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BotonSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonSalirMouseClicked(evt);
+            }
+        });
+        jPanel1.add(BotonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, 210, 40));
 
         BotonRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -62,7 +74,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 BotonUsuariosMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 240, 260, 210));
+        jPanel1.add(BotonUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 220, 230, 200));
 
         BotonReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonReportes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -70,7 +82,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 BotonReportesMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 260, 210));
+        jPanel1.add(BotonReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, 220, 210));
 
         BotonEventos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonEventos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,7 +90,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 BotonEventosMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonEventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 260, 210));
+        jPanel1.add(BotonEventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 220, 210));
 
         UsuarioLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 36)); // NOI18N
         UsuarioLabel.setForeground(new java.awt.Color(0, 0, 0));
@@ -105,7 +117,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEventosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosMouseClicked
-        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel);
+        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
         administracionEventos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonEventosMouseClicked
@@ -115,17 +127,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonReportesMouseClicked
 
     private void BotonUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonUsuariosMouseClicked
-        AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel);
-        administracionUsuarios.setVisible(true);
-        this.setVisible(false);
+        String clase = usuarioLogueado.getClass().getName();
+        
+    
+        if (clase.equals("GestorUsuarios.Administrador")) {
+            AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel, usuarioLogueado);
+            administracionUsuarios.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Opción solo disponible para usuarios ADMINISTRADORES.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_BotonUsuariosMouseClicked
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
+        LogIn logIn = new LogIn(listaUsuarios, usuarioLogueado);
+        logIn.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonRegresarMouseClicked
+
+    private void BotonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonSalirMouseClicked
         int opcionSalir = JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (opcionSalir == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }//GEN-LAST:event_BotonRegresarMouseClicked
+    }//GEN-LAST:event_BotonSalirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -157,7 +182,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(null, null).setVisible(true);
+                new MenuPrincipal(null, null, null).setVisible(true);
             }
         });
     }
@@ -166,6 +191,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel BotonEventos;
     private javax.swing.JLabel BotonRegresar;
     private javax.swing.JLabel BotonReportes;
+    private javax.swing.JLabel BotonSalir;
     private javax.swing.JLabel BotonUsuarios;
     private javax.swing.JLabel Fondo;
     private javax.swing.JLabel UsuarioLabel;

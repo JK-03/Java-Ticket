@@ -14,10 +14,12 @@ import java.util.ArrayList;
 public class AdministracionUsuarios extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
     private String nombreLabel;
+    private UsuariosInfo usuarioLogueado;
     
-    public AdministracionUsuarios(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel) {
+    public AdministracionUsuarios(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
         this.nombreLabel = nombreLabel;
+        this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
     }
@@ -93,17 +95,21 @@ public class AdministracionUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel);
+        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);
         menuPrincipal.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
-        // TODO add your handling code here:
+        CrearUsuario crearUsuario = new CrearUsuario(listaUsuarios, usuarioLogueado);
+        crearUsuario.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonCrearMouseClicked
 
     private void BotonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEditarMouseClicked
-        // TODO add your handling code here:
+        ModificarUsuario modificarUsuario = new ModificarUsuario(listaUsuarios, usuarioLogueado);
+        modificarUsuario.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonEditarMouseClicked
 
     private void BotonBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonBorrarMouseClicked
@@ -140,7 +146,7 @@ public class AdministracionUsuarios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministracionUsuarios(null, null).setVisible(true);
+                new AdministracionUsuarios(null, null, null).setVisible(true);
             }
         });
     }

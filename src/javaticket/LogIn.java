@@ -17,8 +17,9 @@ public class LogIn extends javax.swing.JFrame {
     private GestionarUsuarios gestionarUsuarios;
     ArrayList<UsuariosInfo> listaUsuarios;
     private String nombreLabel;
+    private UsuariosInfo usuarioLogueado;
     
-    public LogIn(ArrayList<UsuariosInfo> listaUsuariosExterna) {
+    public LogIn(ArrayList<UsuariosInfo> listaUsuariosExterna, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
         gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
         
@@ -88,21 +89,16 @@ public class LogIn extends javax.swing.JFrame {
         String contra = ContraField.getText();
         nombreLabel = nombreUsuario;
         
-        int resultado = gestionarUsuarios.logIn(nombreUsuario, contra);
+        UsuariosInfo resultado = gestionarUsuarios.logIn(nombreUsuario, contra);
+        usuarioLogueado = resultado;
+
+        System.out.println("Resultado: " + resultado);
         
-        switch (resultado) {
-        case 0:
-            JOptionPane.showMessageDialog(null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!", "Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
-            MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel);
-            menuPrincipal.setVisible(true);
-            this.setVisible(false);
-            break;
-        case 1:
-            JOptionPane.showMessageDialog(null, "El usuario ingresado no existe. Por favor, inténtelo nuevamente.", "Usuario Inexistente", JOptionPane.ERROR_MESSAGE);
-            break;
-        case 2:
-            JOptionPane.showMessageDialog(null, "La contraseña ingresada es incorrecta. Por favor, inténtelo nuevamente.", "Contraseña Incorrecta", JOptionPane.ERROR_MESSAGE);
-            break;
+        if (resultado != null) {
+           JOptionPane.showMessageDialog(null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!", "Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
+           MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);
+           menuPrincipal.setVisible(true);
+           this.setVisible(false); 
         }
     }//GEN-LAST:event_BotonIngresarMouseClicked
    
@@ -136,7 +132,7 @@ public class LogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogIn(null).setVisible(true);
+                new LogIn(null, null).setVisible(true);
             }
         });
     }

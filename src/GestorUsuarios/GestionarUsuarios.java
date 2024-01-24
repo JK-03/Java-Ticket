@@ -5,6 +5,8 @@
 package GestorUsuarios;
 
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,8 +26,16 @@ public class GestionarUsuarios {
     
     private boolean agregarUsuario(String nombreCompleto, String usuario, String contra, int edad, String tipoUsuario, int index) {
         if (index == listaUsuarios.size()) {
-            UsuariosInfo nuevoUsuario = new UsuariosInfo(nombreCompleto, usuario, contra, edad, tipoUsuario) {};
-            listaUsuarios.add(nuevoUsuario);
+            switch (tipoUsuario) {
+                case "ADMINISTRADOR":
+                    listaUsuarios.add(new Administrador(nombreCompleto, usuario, contra, edad));
+                    break;
+                case "CONTENIDO":
+                    listaUsuarios.add(new Contenidos(nombreCompleto, usuario, contra, edad));
+                    break;
+                default:
+                    listaUsuarios.add(new Limitado(nombreCompleto, usuario, contra, edad));
+            }
             return true;
         }
 
@@ -38,21 +48,23 @@ public class GestionarUsuarios {
     }
     
     //Función Recursiva
-    public int logIn(String usuario, String contra) {
+    public UsuariosInfo logIn(String usuario, String contra) {
         return logIn(usuario, contra, 0);
     }
-    
-    private int logIn(String usuario, String contra, int index) {
+
+    private UsuariosInfo logIn(String usuario, String contra, int index) {
         if (index == listaUsuarios.size()) {
-            return 1;
+            JOptionPane.showMessageDialog(null, "El usuario ingresado no existe. Por favor, inténtelo nuevamente.", "Usuario Inexistente", JOptionPane.ERROR_MESSAGE);
+            return null;
         }
 
         UsuariosInfo usuarioExistente = listaUsuarios.get(index);
         if (usuarioExistente.getUsuario().equals(usuario)) {
             if (usuarioExistente.getContra().equals(contra)) {
-                return 0;
+                return usuarioExistente;
             } else {
-                return 2;
+                JOptionPane.showMessageDialog(null, "La contraseña ingresada es incorrecta. Por favor, inténtelo nuevamente.", "Contraseña Incorrecta", JOptionPane.ERROR_MESSAGE);
+                return null;
             }
         }
         
@@ -61,10 +73,10 @@ public class GestionarUsuarios {
     
     //Función Recursiva
     public String getTipoUsuario(String nombreUsuario) {
-        return getTipoUsuarioRecursivo(nombreUsuario, 0);
+        return getTipoUsuario(nombreUsuario, 0);
     }
     
-    private String getTipoUsuarioRecursivo(String nombreUsuario, int index) {
+    private String getTipoUsuario(String nombreUsuario, int index) {
         if (index == listaUsuarios.size()) {
             return null;
         }
@@ -74,6 +86,20 @@ public class GestionarUsuarios {
             return usuarioExistente.getTipoUsuario();
         }
 
-        return getTipoUsuarioRecursivo(nombreUsuario, index + 1);
+        return getTipoUsuario(nombreUsuario, index + 1);
     }
+    
+    //Función Recursiva
+    public void cargarUsuario(JComboBox<String> comboBox) {
+        cargarUsuario(comboBox, 0);
+    }
+
+    private void cargarUsuario(JComboBox<String> comboBox, int index) {
+        if (index < listaUsuarios.size()) {
+            comboBox.addItem(listaUsuarios.get(index).getUsuario());
+            cargarUsuario(comboBox, index + 1);
+        }
+    }
+    
+    
 }

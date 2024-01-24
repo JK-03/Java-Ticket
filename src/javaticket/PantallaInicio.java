@@ -4,7 +4,10 @@
  */
 package javaticket;
 
+import GestorUsuarios.Administrador;
+import GestorUsuarios.Contenidos;
 import GestorUsuarios.GestionarUsuarios;
+import GestorUsuarios.Limitado;
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
 
@@ -14,6 +17,7 @@ import java.util.ArrayList;
  */
 public class PantallaInicio extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
+    private UsuariosInfo usuarioLogueado;
     
     public PantallaInicio(ArrayList<UsuariosInfo> listaUsuariosExterna) {
         inicializarListaUsuarios(listaUsuariosExterna);
@@ -26,9 +30,9 @@ public class PantallaInicio extends javax.swing.JFrame {
         
         if (listaUsuariosExterna==null) {
             // Agregar usuario predeterminado
-            listaUsuarios.add(new UsuariosInfo("Administrador", "admin", "supersecreto", 20, "ADMINISTRADOR") {});
-            listaUsuarios.add(new UsuariosInfo("Limitado", "limitado", "12345", 20, "LIMITADO") {});
-            listaUsuarios.add(new UsuariosInfo("Contenido", "contenido", "12345", 20, "CONTENIDO") {});
+            listaUsuarios.add(new Administrador("Administrador", "admin", "supersecreto", 20));
+            listaUsuarios.add(new Contenidos("Limitado", "limitado", "12345", 20));
+            listaUsuarios.add(new Limitado("Contenido", "contenido", "12345", 20));
         }
     }
     
@@ -68,7 +72,7 @@ public class PantallaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLogInMouseClicked
-        LogIn logIn = new LogIn(listaUsuarios);
+        LogIn logIn = new LogIn(listaUsuarios, usuarioLogueado);
         logIn.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonLogInMouseClicked
