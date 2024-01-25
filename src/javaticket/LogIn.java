@@ -92,8 +92,6 @@ public class LogIn extends javax.swing.JFrame {
         UsuariosInfo resultado = gestionarUsuarios.logIn(nombreUsuario, contra);
         usuarioLogueado = resultado;
 
-        System.out.println("Resultado: " + resultado);
-        
         if (resultado != null) {
            JOptionPane.showMessageDialog(null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!", "Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
            MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);

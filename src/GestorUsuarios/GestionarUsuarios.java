@@ -72,33 +72,39 @@ public class GestionarUsuarios {
     }
     
     //Función Recursiva
-    public String getTipoUsuario(String nombreUsuario) {
-        return getTipoUsuario(nombreUsuario, 0);
-    }
-    
-    private String getTipoUsuario(String nombreUsuario, int index) {
-        if (index == listaUsuarios.size()) {
-            return null;
-        }
-
-        UsuariosInfo usuarioExistente = listaUsuarios.get(index);
-        if (usuarioExistente.getUsuario().equals(nombreUsuario)) {
-            return usuarioExistente.getTipoUsuario();
-        }
-
-        return getTipoUsuario(nombreUsuario, index + 1);
-    }
-    
-    //Función Recursiva
-    public void cargarUsuario(JComboBox<String> comboBox) {
+    public void cargarUsuario(JComboBox<UsuariosInfo> comboBox) {
         cargarUsuario(comboBox, 0);
     }
 
-    private void cargarUsuario(JComboBox<String> comboBox, int index) {
+    private void cargarUsuario(JComboBox<UsuariosInfo> comboBox, int index) {
         if (index < listaUsuarios.size()) {
-            comboBox.addItem(listaUsuarios.get(index).getUsuario());
+            comboBox.addItem(listaUsuarios.get(index));
             cargarUsuario(comboBox, index + 1);
         }
+    }
+    
+    public boolean modificarUsuario(String nombreCompleto, String usuario, String contra, int edad) {
+        return modificarUsuario(nombreCompleto, usuario, contra, edad, 0);
+    }
+    
+    private boolean modificarUsuario(String nombreCompleto, String usuario, String contra, int edad, int index) {
+        if (index < listaUsuarios.size()) {
+            UsuariosInfo usuarioActual = listaUsuarios.get(index);
+            if (usuarioActual.getUsuario().equals(usuario)) {
+                usuarioActual.setNombreCompleto(nombreCompleto);
+                usuarioActual.setUsuario(usuario);
+                usuarioActual.setContra(contra);
+                usuarioActual.setEdad(edad);
+                return true;
+            } else {
+                return modificarUsuario(nombreCompleto, usuario, contra, edad, index + 1);
+            }
+        }
+        return false;
+    }
+    
+    public void eliminarUsuario(UsuariosInfo usuarioEliminar) {
+        listaUsuarios.remove(usuarioEliminar);
     }
     
     

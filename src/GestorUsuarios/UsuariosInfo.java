@@ -5,6 +5,7 @@
 package GestorUsuarios;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -63,7 +64,27 @@ public abstract class UsuariosInfo {
     public void setEdad(int edad) {
         this.edad = edad;
     }
-
+    
+    @Override
+    public boolean equals(Object otroObjeto) {
+        if (this == otroObjeto) {
+            return true;
+        }
+        if (otroObjeto == null || getClass() != otroObjeto.getClass()) {
+            return false;
+        }
+        
+        UsuariosInfo otroUsuario = (UsuariosInfo) otroObjeto;
+        return Objects.equals(nombreCompleto, otroUsuario.nombreCompleto) &&
+               Objects.equals(usuario, otroUsuario.usuario) &&
+               Objects.equals(contra, otroUsuario.contra) &&
+               edad == otroUsuario.edad;
+    }
+    
+    @Override
+    public String toString() {
+        return this.getUsuario();
+    }
 }
 
     

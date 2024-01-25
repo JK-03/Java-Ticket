@@ -6,7 +6,9 @@ package javaticket;
 
 import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,13 +20,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private String nombreLabel;
     private GestionarUsuarios gestionarUsuarios;
     private UsuariosInfo usuarioLogueado;
+    private Calendar hora = Calendar.getInstance();
     
     public MenuPrincipal(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
         this.nombreLabel = nombreLabel;
         gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
         this.usuarioLogueado = usuarioLogueado;
-        
         initComponents();
         
         UsuarioLabel.setText(nombreLabel);
@@ -46,6 +48,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         BotonReportes = new javax.swing.JLabel();
         BotonEventos = new javax.swing.JLabel();
         UsuarioLabel = new javax.swing.JLabel();
+        HoraLabel = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,6 +101,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         UsuarioLabel.setText("Usuario");
         jPanel1.add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 350, 60));
 
+        HoraLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 36)); // NOI18N
+        HoraLabel.setForeground(new java.awt.Color(239, 169, 187));
+        jPanel1.add(HoraLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 507, 220, 30));
+
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/MenuPrincipal.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -128,7 +135,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void BotonUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonUsuariosMouseClicked
         String clase = usuarioLogueado.getClass().getName();
-        
     
         if (clase.equals("GestorUsuarios.Administrador")) {
             AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel, usuarioLogueado);
@@ -194,6 +200,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel BotonSalir;
     private javax.swing.JLabel BotonUsuarios;
     private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel HoraLabel;
     private javax.swing.JLabel UsuarioLabel;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

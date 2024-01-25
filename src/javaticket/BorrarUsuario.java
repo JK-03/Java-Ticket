@@ -7,21 +7,20 @@ package javaticket;
 import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
-import java.util.HashSet;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author jenniferbueso
  */
-public class ModificarUsuario extends javax.swing.JFrame {
+public class BorrarUsuario extends javax.swing.JFrame {
     private GestionarUsuarios gestionarUsuarios;
     ArrayList<UsuariosInfo> listaUsuarios;
     private String nombreLabel;
-    private UsuariosInfo usuarioLogueado;
+    private UsuariosInfo usuarioLogueado, usuarioSeleccionado;
     int index;
    
-    public ModificarUsuario(ArrayList<UsuariosInfo> listaUsuariosExterna, UsuariosInfo usuarioLogueado) {
+    public BorrarUsuario(ArrayList<UsuariosInfo> listaUsuariosExterna, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
         gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
         this.usuarioLogueado = usuarioLogueado;
@@ -47,7 +46,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         UsuarioField = new javax.swing.JTextField();
         NombreCompletoField = new javax.swing.JTextField();
         BotonRegresar = new javax.swing.JLabel();
-        BotonModificar = new javax.swing.JLabel();
+        BotonEliminar = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,15 +97,15 @@ public class ModificarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(BotonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 50, 60));
 
-        BotonModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonModificarMouseClicked(evt);
+                BotonEliminarMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 500, 220, 40));
+        jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 500, 220, 40));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/ModificarUsuario.png"))); // NOI18N
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/EliminarUsuario.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,23 +123,14 @@ public class ModificarUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonModificarMouseClicked
-        String tipoUsuario = tiposUsuariosBox.getSelectedItem().toString().toUpperCase();
-        String nombreCompleto = NombreCompletoField.getText();
-        String usuario = UsuarioField.getText();
-        String contra = ContraField.getText();
-        int edad = Integer.parseInt(EdadField.getText());
-        
-        boolean mensaje = gestionarUsuarios.modificarUsuario(nombreCompleto, usuario, contra, edad);
-        
-        if (mensaje) {
-            JOptionPane.showMessageDialog(null, "¡Usuario modificado exitosamente!", "Usuario Modificado", JOptionPane.INFORMATION_MESSAGE);
-            NombreCompletoField.setText("");
-            UsuarioField.setText("");
-            ContraField.setText("");
-            EdadField.setText("");
-        }
-    }//GEN-LAST:event_BotonModificarMouseClicked
+    private void tiposUsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposUsuariosBoxActionPerformed
+        usuarioSeleccionado = (UsuariosInfo) tiposUsuariosBox.getSelectedItem();
+    
+        NombreCompletoField.setText(usuarioSeleccionado.getNombreCompleto());
+        UsuarioField.setText(usuarioSeleccionado.getUsuario());
+        ContraField.setText(usuarioSeleccionado.getContra());
+        EdadField.setText(Integer.toString(usuarioSeleccionado.getEdad()));
+    }//GEN-LAST:event_tiposUsuariosBoxActionPerformed
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
         AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel, usuarioLogueado);
@@ -148,14 +138,19 @@ public class ModificarUsuario extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
-    private void tiposUsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposUsuariosBoxActionPerformed
-        UsuariosInfo usuarioSeleccionado = (UsuariosInfo) tiposUsuariosBox.getSelectedItem();
-        index = listaUsuarios.indexOf(usuarioSeleccionado);
-        NombreCompletoField.setText(usuarioSeleccionado.getNombreCompleto());
-        UsuarioField.setText(usuarioSeleccionado.getUsuario());
-        ContraField.setText(usuarioSeleccionado.getContra());
-        EdadField.setText(Integer.toString(usuarioSeleccionado.getEdad()));
-    }//GEN-LAST:event_tiposUsuariosBoxActionPerformed
+    private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta cuenta?", "Eliminar Cuenta", JOptionPane.YES_NO_OPTION);
+        
+        if (opcion == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "¡Usuario eliminado exitosamente!", "Usuario Eliminado", JOptionPane.INFORMATION_MESSAGE);
+            tiposUsuariosBox.removeItem(usuarioSeleccionado);
+            gestionarUsuarios.eliminarUsuario(usuarioSeleccionado);
+            NombreCompletoField.setText("");
+            UsuarioField.setText("");
+            ContraField.setText("");
+            EdadField.setText("");
+        }
+    }//GEN-LAST:event_BotonEliminarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -174,26 +169,26 @@ public class ModificarUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BorrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BorrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BorrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BorrarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarUsuario(null, null).setVisible(true);
+                new BorrarUsuario(null, null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BotonModificar;
+    private javax.swing.JLabel BotonEliminar;
     private javax.swing.JLabel BotonRegresar;
     private javax.swing.JTextField ContraField;
     private javax.swing.JTextField EdadField;

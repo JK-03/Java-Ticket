@@ -127,7 +127,12 @@ public class CrearUsuario extends javax.swing.JFrame {
         String nombreCompleto = NombreCompletoField.getText();
         String usuario = UsuarioField.getText();
         String contra = ContraField.getText();
-        int edad = 0;
+        int edad = 1;
+        
+        while (edad<=0 || edad>100) {
+            JOptionPane.showMessageDialog(null, "Rango de edad válido: 1-100");
+            edad = 0;
+        }
         
         try {
             edad = Integer.parseInt(EdadField.getText());
@@ -143,6 +148,10 @@ public class CrearUsuario extends javax.swing.JFrame {
         } else if (mostrarMensaje){
             gestionarUsuarios.agregarUsuario(nombreCompleto, usuario, contra, edad, tipoUsuario);
             JOptionPane.showMessageDialog(null, "¡Usuario creado exitosamente!", "Usuario Creado", JOptionPane.INFORMATION_MESSAGE);
+            NombreCompletoField.setText("");
+            UsuarioField.setText("");
+            ContraField.setText("");
+            EdadField.setText("");
         } else if (mostrarMensaje == false) {
             JOptionPane.showMessageDialog(null, "El usuario ya existe. Inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }

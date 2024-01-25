@@ -113,7 +113,9 @@ public class AdministracionUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEditarMouseClicked
 
     private void BotonBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonBorrarMouseClicked
-        // TODO add your handling code here:
+        BorrarUsuario borrarUsuario = new BorrarUsuario(listaUsuarios, usuarioLogueado);
+        borrarUsuario.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonBorrarMouseClicked
 
     /**
