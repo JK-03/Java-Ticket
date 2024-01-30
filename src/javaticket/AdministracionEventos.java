@@ -6,6 +6,7 @@ package javaticket;
 
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,8 +39,8 @@ public class AdministracionEventos extends javax.swing.JFrame {
         BotonVer = new javax.swing.JLabel();
         BotonRegresar = new javax.swing.JLabel();
         BotonEditar = new javax.swing.JLabel();
-        BotonEliminar = new javax.swing.JLabel();
         BotonCrear = new javax.swing.JLabel();
+        BotonEliminar = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,21 +71,21 @@ public class AdministracionEventos extends javax.swing.JFrame {
         });
         jPanel1.add(BotonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 170, 150));
 
-        BotonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonEliminarMouseClicked(evt);
-            }
-        });
-        jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 170, 150));
-
         BotonCrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonCrear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BotonCrearMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 170, 150));
+        jPanel1.add(BotonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 170, 150));
+
+        BotonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonEliminarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 170, 150));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/administrarEventos.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -104,10 +105,6 @@ public class AdministracionEventos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BotonEliminarMouseClicked
-
     private void BotonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEditarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonEditarMouseClicked
@@ -122,8 +119,21 @@ public class AdministracionEventos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
+    private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
+           
+        
+    }//GEN-LAST:event_BotonEliminarMouseClicked
+
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
-        // TODO add your handling code here:
+        String clase = usuarioLogueado.getClass().getName();
+        
+        if (clase.equals("GestorUsuarios.Limitado")) {
+            JOptionPane.showMessageDialog(null, "Lo siento, esta opción no está disponible para usuarios LIMITADOS.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+        } else {
+            CrearEvento crearEvento = new CrearEvento(listaUsuarios, nombreLabel, usuarioLogueado);
+            crearEvento.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_BotonCrearMouseClicked
 
     /**

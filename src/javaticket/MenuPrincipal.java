@@ -29,7 +29,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.usuarioLogueado = usuarioLogueado;
         initComponents();
         
-        UsuarioLabel.setText(nombreLabel);
+        UsuarioLabel.setText(usuarioLogueado.toString());
     }
 
     /**
@@ -141,7 +141,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             administracionUsuarios.setVisible(true);
             this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Opción solo disponible para usuarios ADMINISTRADORES.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Lo siento, esta opción solo está disponible para usuarios con privilegios de administrador. Por favor, contacta a un administrador si necesitas acceder a esta función.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotonUsuariosMouseClicked
 
