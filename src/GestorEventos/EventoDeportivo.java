@@ -23,7 +23,6 @@ public class EventoDeportivo extends EventosInfo {
     
     public EventoDeportivo(String codigo, String titulo, String descripcion, Date fecha, double montoRenta, int aforo, String equipo1, String equipo2, DeportesTipo tipoDeporte) {
         super(codigo, titulo, descripcion, fecha, montoRenta);
-        setAforo(aforo);
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
         this.tipoDeporte = tipoDeporte;
@@ -35,12 +34,13 @@ public class EventoDeportivo extends EventosInfo {
         return aforo;
     }
 
-    public void setAforo(int aforo) {
+    public boolean setAforo(int aforo) {
         if (aforo > AFORO_MAXIMO) {
-            JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido." + "El aforo será establecido a " + AFORO_MAXIMO, "Crear Evento Deportivo", JOptionPane.WARNING_MESSAGE);
-            this.aforo = AFORO_MAXIMO;
+            JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido de " + AFORO_MAXIMO + ". Por favor, introduce un nuevo valor.", "Crear Evento Deportivo", JOptionPane.WARNING_MESSAGE);
+            return false;
         } else {
             this.aforo = aforo;
+            return true;
         }
     }
 

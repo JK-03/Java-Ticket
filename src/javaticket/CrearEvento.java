@@ -5,11 +5,19 @@
 package javaticket;
 
 import GestorEventos.DeportesTipo;
+import GestorEventos.EventoDeportivo;
+import GestorEventos.EventoMusical;
 import GestorEventos.EventosInfo;
 import GestorEventos.MusicalTipo;
 import GestorUsuarios.UsuariosInfo;
 import GestorEventos.GestionarEventos;
+import GestorUsuarios.Administrador;
+import GestorUsuarios.Contenidos;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -58,27 +66,28 @@ public class CrearEvento extends javax.swing.JFrame {
         TipoEventoBox = new javax.swing.JComboBox<>();
         FechaField = new javax.swing.JTextField();
         RentaField = new javax.swing.JTextField();
+        RentaField1 = new javax.swing.JTextField();
         TituloField = new javax.swing.JTextField();
         CódigoField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         DescripcionField = new javax.swing.JTextArea();
-        ReligiosoPanel = new javax.swing.JPanel();
-        SeguroFieldR = new javax.swing.JTextField();
-        AforoFieldR = new javax.swing.JTextField();
-        FondoReligioso = new javax.swing.JLabel();
         MusicalPanel = new javax.swing.JPanel();
         TipoMusicalBox = new javax.swing.JComboBox<>(MusicalTipo.values());
         SeguroFieldM = new javax.swing.JTextField();
         AforoFieldM = new javax.swing.JTextField();
         FondoMusical = new javax.swing.JLabel();
-        InicioPanel = new javax.swing.JPanel();
-        FondoInicio = new javax.swing.JLabel();
+        ReligiosoPanel = new javax.swing.JPanel();
+        SeguroFieldR = new javax.swing.JTextField();
+        AforoFieldR = new javax.swing.JTextField();
+        FondoReligioso = new javax.swing.JLabel();
         DeportePanel = new javax.swing.JPanel();
         TipoDeporteBox = new javax.swing.JComboBox<>(DeportesTipo.values());
         AforoFieldD = new javax.swing.JTextField();
         EquipoDosField = new javax.swing.JTextField();
         EquipoUnoField = new javax.swing.JTextField();
         FondoDeportivo = new javax.swing.JLabel();
+        InicioPanel = new javax.swing.JPanel();
+        FondoInicio = new javax.swing.JLabel();
         BotonRegresar = new javax.swing.JLabel();
         BotonCrear = new javax.swing.JLabel();
         BotonCalendario = new javax.swing.JLabel();
@@ -127,12 +136,41 @@ public class CrearEvento extends javax.swing.JFrame {
         RentaField.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
         RentaField.setForeground(new java.awt.Color(0, 0, 0));
         RentaField.setBorder(null);
+        RentaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RentaFieldActionPerformed(evt);
+            }
+        });
         RentaField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                RentaFieldKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 RentaFieldKeyTyped(evt);
             }
         });
-        jPanel1.add(RentaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 481, 260, 40));
+        jPanel1.add(RentaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 481, 220, 40));
+
+        RentaField1.setEditable(false);
+        RentaField1.setBackground(new java.awt.Color(253, 228, 240));
+        RentaField1.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        RentaField1.setForeground(new java.awt.Color(0, 0, 0));
+        RentaField1.setText("Lps.");
+        RentaField1.setBorder(null);
+        RentaField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RentaField1ActionPerformed(evt);
+            }
+        });
+        RentaField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                RentaField1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                RentaField1KeyTyped(evt);
+            }
+        });
+        jPanel1.add(RentaField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 481, 30, 40));
 
         TituloField.setBackground(new java.awt.Color(253, 228, 240));
         TituloField.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
@@ -158,6 +196,48 @@ public class CrearEvento extends javax.swing.JFrame {
         jScrollPane1.setViewportView(DescripcionField);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 313, 370, 110));
+
+        MusicalPanel.setBackground(new java.awt.Color(255, 255, 255));
+        MusicalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TipoMusicalBox.setBackground(new java.awt.Color(253, 228, 240));
+        TipoMusicalBox.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        TipoMusicalBox.setForeground(new java.awt.Color(0, 0, 0));
+        TipoMusicalBox.setBorder(null);
+        MusicalPanel.add(TipoMusicalBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 26, 170, 40));
+
+        SeguroFieldM.setEditable(false);
+        SeguroFieldM.setBackground(new java.awt.Color(253, 228, 240));
+        SeguroFieldM.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        SeguroFieldM.setForeground(new java.awt.Color(0, 0, 0));
+        SeguroFieldM.setBorder(null);
+        SeguroFieldM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguroFieldMActionPerformed(evt);
+            }
+        });
+        SeguroFieldM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SeguroFieldMKeyTyped(evt);
+            }
+        });
+        MusicalPanel.add(SeguroFieldM, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 105, 270, 40));
+
+        AforoFieldM.setBackground(new java.awt.Color(253, 228, 240));
+        AforoFieldM.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        AforoFieldM.setForeground(new java.awt.Color(0, 0, 0));
+        AforoFieldM.setBorder(null);
+        AforoFieldM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AforoFieldMKeyTyped(evt);
+            }
+        });
+        MusicalPanel.add(AforoFieldM, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 26, 270, 40));
+
+        FondoMusical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/InterfazMusical.png"))); // NOI18N
+        MusicalPanel.add(FondoMusical, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.add(MusicalPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
 
         ReligiosoPanel.setBackground(new java.awt.Color(255, 255, 255));
         ReligiosoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -189,51 +269,6 @@ public class CrearEvento extends javax.swing.JFrame {
         ReligiosoPanel.add(FondoReligioso, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel1.add(ReligiosoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
-
-        MusicalPanel.setBackground(new java.awt.Color(255, 255, 255));
-        MusicalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        TipoMusicalBox.setBackground(new java.awt.Color(253, 228, 240));
-        TipoMusicalBox.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        TipoMusicalBox.setForeground(new java.awt.Color(0, 0, 0));
-        TipoMusicalBox.setBorder(null);
-        MusicalPanel.add(TipoMusicalBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 26, 170, 40));
-
-        SeguroFieldM.setEditable(false);
-        SeguroFieldM.setBackground(new java.awt.Color(253, 228, 240));
-        SeguroFieldM.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        SeguroFieldM.setForeground(new java.awt.Color(0, 0, 0));
-        SeguroFieldM.setBorder(null);
-        SeguroFieldM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                SeguroFieldMKeyTyped(evt);
-            }
-        });
-        MusicalPanel.add(SeguroFieldM, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 105, 270, 40));
-
-        AforoFieldM.setBackground(new java.awt.Color(253, 228, 240));
-        AforoFieldM.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        AforoFieldM.setForeground(new java.awt.Color(0, 0, 0));
-        AforoFieldM.setBorder(null);
-        AforoFieldM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                AforoFieldMKeyTyped(evt);
-            }
-        });
-        MusicalPanel.add(AforoFieldM, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 26, 270, 40));
-
-        FondoMusical.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/InterfazMusical.png"))); // NOI18N
-        MusicalPanel.add(FondoMusical, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel1.add(MusicalPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
-
-        InicioPanel.setBackground(new java.awt.Color(255, 255, 255));
-        InicioPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        FondoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/InterfazInicio.png"))); // NOI18N
-        InicioPanel.add(FondoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel1.add(InicioPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
 
         DeportePanel.setBackground(new java.awt.Color(255, 255, 255));
         DeportePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -271,6 +306,14 @@ public class CrearEvento extends javax.swing.JFrame {
         DeportePanel.add(FondoDeportivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel1.add(DeportePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
+
+        InicioPanel.setBackground(new java.awt.Color(255, 255, 255));
+        InicioPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        FondoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/InterfazInicio.png"))); // NOI18N
+        InicioPanel.add(FondoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.add(InicioPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
 
         BotonRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -391,7 +434,39 @@ public class CrearEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
-        String tipoEvento = TipoEventoBox.getSelectedItem().toString().toUpperCase();
+        String tipoEvento = TipoEventoBox.getSelectedItem().toString();
+        String codigo = CódigoField.getText();
+        String titulo = TituloField.getText();
+        String descripcion = DescripcionField.getText();
+        String rentaS = RentaField.getText();
+        String fechaS = FechaField.getText();
+        
+        if (tipoEvento.equals(" ")) {
+            JOptionPane.showMessageDialog(null, "Elije un Tipo de Evento.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (titulo.isEmpty() || titulo.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Título.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (descripcion.isEmpty() || descripcion.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Descripción.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (fechaS.isEmpty() || fechaS.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Fecha.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (rentaS.isEmpty() || rentaS.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Renta.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        double renta = Integer.parseInt(rentaS);
+        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+        Date fecha = null;
+        try {
+            fecha = formatoFecha.parse(fechaS);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         
         switch (tipoEvento) {
             case "Deportivo":
@@ -403,15 +478,82 @@ public class CrearEvento extends javax.swing.JFrame {
                 AforoFieldR = null;
                 SeguroFieldR = null;
                 
+                String equipoUno = EquipoUnoField.getText();
+                String equipoDos = EquipoDosField.getText();
+                String aforoS = AforoFieldD.getText();
+                DeportesTipo tipoDeporte = (DeportesTipo) TipoDeporteBox.getSelectedItem();
+                
+                if (equipoUno.isEmpty() || equipoUno.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Completa el campo de Equipo 1.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (equipoDos.isEmpty() || equipoDos.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Completa el campo de Equipo 2.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (aforoS.isEmpty() || aforoS.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Completa el campo de Aforo.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                int aforoD = Integer.parseInt(AforoFieldD.getText());
+               
+                EventoDeportivo eventoD = new EventoDeportivo(codigo, titulo, descripcion, fecha, renta, aforoD, equipoUno, equipoDos, tipoDeporte);
+
+                if (eventoD.setAforo(aforoD)) {
+                    PantallaInicio.gestionarEventos.agregarEvento(eventoD);
+                    agregarIdAlUsuario(codigo);
+                    
+                    AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
+                    administracionEventos.setVisible(true);
+                    this.setVisible(false);
+                }
+                break;
                 
             case "Musical":
+                //Panel Religioso
+                AforoFieldR = null;
+                SeguroFieldR = null;
+                
+                //Panel Deportivo
+                AforoFieldD = null;
+                EquipoUnoField = null;
+                EquipoDosField = null;
+                
+                String aforoMS = AforoFieldM.getText();
+                MusicalTipo tipoMusical = (MusicalTipo) TipoMusicalBox.getSelectedItem();
+                
+                if (aforoMS.isEmpty() || aforoMS.isBlank()) {
+                    JOptionPane.showMessageDialog(null, "Completa el campo de Aforo.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                int aforoM = Integer.parseInt(AforoFieldM.getText());
+                
+                EventoMusical eventoM = new EventoMusical(codigo, titulo, descripcion, fecha, renta, aforoM, tipoMusical);
+                
+                if (eventoM.setAforo(aforoM)) {
+                    PantallaInicio.gestionarEventos.agregarEvento(eventoM);
+                    agregarIdAlUsuario(codigo);
+                    
+                    AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
+                    administracionEventos.setVisible(true);
+                    this.setVisible(false);
+                }
+                break;
                 
             case "Religioso":
                 
         }
 
     }//GEN-LAST:event_BotonCrearMouseClicked
-
+    
+    private void agregarIdAlUsuario(String id) {
+	if (usuarioLogueado instanceof Administrador) {
+            ((Administrador) usuarioLogueado).agregarIdEvento(id);
+        } else {
+            ((Contenidos) usuarioLogueado).agregarIdEvento(id);
+        }
+    }
+    
     private void BotonCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCalendarioMouseClicked
         CalendarioVisual calendarioVisual = new CalendarioVisual();
         calendarioVisual.setVisible(true);
@@ -429,6 +571,39 @@ public class CrearEvento extends javax.swing.JFrame {
     private void FechaFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FechaFieldMouseClicked
         JOptionPane.showMessageDialog(null, "Si deseas reservar una fecha, por favor haz clic en el ícono del calendario.", "Información de Reserva", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_FechaFieldMouseClicked
+
+    private void SeguroFieldMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguroFieldMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeguroFieldMActionPerformed
+
+    private void RentaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RentaFieldActionPerformed
+
+    private void RentaFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RentaFieldKeyReleased
+        String tipoEvento = TipoEventoBox.getSelectedItem().toString();
+        
+        if (!RentaField.getText().isEmpty() && tipoEvento.equals("Musical")) {
+            double renta = Integer.parseInt(RentaField.getText());
+            double seguro = renta * EventoMusical.CUOTA_SEGURO / 100;
+            SeguroFieldM.setText("Lps. " + String.valueOf(seguro));
+        } if (RentaField.getText().isEmpty() || RentaField.getText().isBlank()) {
+            SeguroFieldM.setText(null);
+            
+        }
+    }//GEN-LAST:event_RentaFieldKeyReleased
+
+    private void RentaField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentaField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RentaField1ActionPerformed
+
+    private void RentaField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RentaField1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RentaField1KeyReleased
+
+    private void RentaField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RentaField1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RentaField1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -487,6 +662,7 @@ public class CrearEvento extends javax.swing.JFrame {
     private javax.swing.JPanel MusicalPanel;
     private javax.swing.JPanel ReligiosoPanel;
     private javax.swing.JTextField RentaField;
+    private javax.swing.JTextField RentaField1;
     private javax.swing.JTextField SeguroFieldM;
     private javax.swing.JTextField SeguroFieldR;
     private javax.swing.JComboBox<DeportesTipo> TipoDeporteBox;

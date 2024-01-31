@@ -4,6 +4,8 @@
  */
 package javaticket;
 
+import GestorEventos.EventosInfo;
+import GestorEventos.GestionarEventos;
 import GestorUsuarios.Administrador;
 import GestorUsuarios.Contenidos;
 import GestorUsuarios.GestionarUsuarios;
@@ -17,10 +19,13 @@ import java.util.ArrayList;
  */
 public class PantallaInicio extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
+    ArrayList<EventosInfo> listaEventos;
+    public static GestionarEventos gestionarEventos;
     private UsuariosInfo usuarioLogueado;
     
     public PantallaInicio(ArrayList<UsuariosInfo> listaUsuariosExterna) {
         inicializarListaUsuarios(listaUsuariosExterna);
+        gestionarEventos = new GestionarEventos(listaEventos);
         
         initComponents();
     }

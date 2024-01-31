@@ -21,7 +21,6 @@ public class EventoMusical extends EventosInfo {
 
     public EventoMusical(String codigo, String titulo, String descripcion, Date fecha, double montoRenta, int aforo, MusicalTipo tipoMusica) {
         super(codigo, titulo, descripcion, fecha, montoRenta);
-        setAforo(aforo);
         this.tipoMusica = tipoMusica;
         this.staff = new ArrayList<String>();
     }
@@ -30,12 +29,13 @@ public class EventoMusical extends EventosInfo {
         return aforo;
     }
 
-    public void setAforo(int aforo) {
+    public boolean setAforo(int aforo) {
         if (aforo > AFORO_MAXIMO) {
-            JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido."  + "El aforo será establecido a " + AFORO_MAXIMO, "Crear Evento Musical",  JOptionPane.WARNING_MESSAGE);
-            this.aforo = AFORO_MAXIMO;
+            JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido de " + AFORO_MAXIMO + ". Por favor, introduce un nuevo valor.", "Crear Evento Deportivo", JOptionPane.WARNING_MESSAGE);
+            return false;
         } else {
             this.aforo = aforo;
+            return true;
         }
     }
 
@@ -47,7 +47,7 @@ public class EventoMusical extends EventosInfo {
         this.tipoMusica = tipoMusica;
     }
 
-    public double getImporteSeguro() {
+    public double getImporteSeguro(double montoRenta) {
         return  montoRenta * CUOTA_SEGURO / 100;
     }
 
