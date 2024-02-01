@@ -38,7 +38,6 @@ public class GestionarEventos {
             boolean isAdded = listaEventos.add(evento);
             if (isAdded) {
                 JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido agregado con éxito.", "Evento Creado", JOptionPane.INFORMATION_MESSAGE);
-                System.out.println(listaEventos.size());
             } else {
                 JOptionPane.showMessageDialog(null, "Hubo un problema al agregar el evento. Por favor, intenta de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -46,7 +45,7 @@ public class GestionarEventos {
         }
    }
    
-   
+   //Función Recursiva
    public EventosInfo buscarEvento(String codigo) {
        return buscarEvento(codigo, 0);
    }
@@ -101,7 +100,7 @@ public class GestionarEventos {
             } else {
                 JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado sin penalización.", "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
             }
-
+            
             evento.setCancelado(true);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró un evento con el código proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -116,6 +115,7 @@ public class GestionarEventos {
            return null;
        }
    }
+
 
 
 

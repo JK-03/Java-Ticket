@@ -15,19 +15,19 @@ import javax.swing.JOptionPane;
 public class EventoDeportivo extends EventosInfo {
     private static final int AFORO_MAXIMO = 20000;
     private int aforo;
-    private String equipo1;
-    private String equipo2;
+    private String equipo1, equipo2, jugadores1, jugadores2;
     private DeportesTipo tipoDeporte;
-    private ArrayList<String> jugadores1;
-    private ArrayList<String> jugadores2;
+    
+    //private ArrayList<String> jugadores1;
+    //private ArrayList<String> jugadores2;
     
     public EventoDeportivo(String codigo, String titulo, String descripcion, Date fecha, double montoRenta, int aforo, String equipo1, String equipo2, DeportesTipo tipoDeporte) {
         super(codigo, titulo, descripcion, fecha, montoRenta);
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
         this.tipoDeporte = tipoDeporte;
-        this.jugadores1 = new ArrayList<String>();
-        this.jugadores2 = new ArrayList<String>();
+        //this.jugadores1 = new ArrayList<String>();
+        //this.jugadores2 = new ArrayList<String>();
     }
 
     public int getAforo() {
@@ -68,31 +68,19 @@ public class EventoDeportivo extends EventosInfo {
         this.tipoDeporte = tipoDeporte;
     }
 
-    public void setJugadores1(String[] lista) {
-        for (String nombre : lista) {
-            jugadores1.add(nombre);
-        }
+    public void setJugadores1(String nombre) {
+        this.jugadores1 = nombre;
     }
 
-    public void setJugadores2(String[] lista) {
-        for (String nombre : lista) {
-            jugadores2.add(nombre);
-        }
+    public void setJugadores2(String nombre) {
+        this.jugadores2 = nombre;
     }
 
     public String getJugadores1() {
-        StringBuilder lista = new StringBuilder();
-        for (String nombre : jugadores1) {
-            lista.append(nombre);
-        }
-        return lista.toString();
+        return jugadores1;
     }
 
     public String getJugadores2() {
-        StringBuilder lista = new StringBuilder();
-        for (String nombre : jugadores2) {
-            lista.append(nombre);
-        }
-        return lista.toString();
+        return jugadores2;
     }
 }

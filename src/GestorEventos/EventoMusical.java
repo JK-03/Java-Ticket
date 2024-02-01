@@ -16,13 +16,32 @@ public class EventoMusical extends EventosInfo {
     private static final int AFORO_MAXIMO = 25000;
     public static final double CUOTA_SEGURO = 30d; //30%
     private int aforo;
+    private double seguro;
     private MusicalTipo tipoMusica;
-    private ArrayList<String> staff;
+    private String musicos, cargos;
+    //private ArrayList<String> staff;
 
     public EventoMusical(String codigo, String titulo, String descripcion, Date fecha, double montoRenta, int aforo, MusicalTipo tipoMusica) {
         super(codigo, titulo, descripcion, fecha, montoRenta);
         this.tipoMusica = tipoMusica;
-        this.staff = new ArrayList<String>();
+        this.seguro = seguro;
+        //this.staff = new ArrayList<String>();
+    }
+
+    public String getMusicos() {
+        return musicos;
+    }
+
+    public void setMusicos(String musicos) {
+        this.musicos = musicos;
+    }
+
+    public String getCargos() {
+        return cargos;
+    }
+
+    public void setCargos(String cargos) {
+        this.cargos = cargos;
     }
 
     public int getAforo() {
@@ -39,6 +58,14 @@ public class EventoMusical extends EventosInfo {
         }
     }
 
+    public double getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(double seguro) {
+        this.seguro = seguro;
+    }
+    
     public MusicalTipo getTipoMusica() {
         return tipoMusica;
     }
@@ -51,6 +78,7 @@ public class EventoMusical extends EventosInfo {
         return  montoRenta * CUOTA_SEGURO / 100;
     }
 
+    /*
     public void setStaff(String[] lista) {
         for (String nombre : lista) {
             staff.add(nombre);
@@ -64,4 +92,5 @@ public class EventoMusical extends EventosInfo {
         }
         return lista.toString();
     }
+    */
 }

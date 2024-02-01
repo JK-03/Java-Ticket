@@ -48,6 +48,9 @@ public class CalendarioVisual extends javax.swing.JFrame {
             CalendarioPanel.add(new JLabel(day, SwingConstants.CENTER));
         }
         
+        int currentMonth = now.get(Calendar.MONTH);
+        MesesBox.setSelectedIndex(currentMonth);
+        
         updateCalendar(CalendarioPanel, MesesBox, AñosSpinner);
         
         MesesBox.addActionListener(e -> updateCalendar(CalendarioPanel, MesesBox, AñosSpinner));
@@ -168,13 +171,16 @@ public class CalendarioVisual extends javax.swing.JFrame {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, monthComboBox.getSelectedIndex());
         calendar.set(Calendar.YEAR, (Integer) yearSpinner.getValue());
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+        Calendar today = Calendar.getInstance();
+        int currentDay = today.get(Calendar.DAY_OF_MONTH);
+        calendar.set(Calendar.DAY_OF_MONTH, currentDay);
+
         int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         for (int i = 1; i < firstDayOfWeek; i++) {
             calendarPanel.add(new JLabel(""));
         }
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        Calendar today = Calendar.getInstance();
         for (int indice = 1; indice <= maxDay; indice++) {
             JButton dayButton = new JButton(String.valueOf(indice));
             dayButton.addActionListener(new ActionListener() {
@@ -182,31 +188,27 @@ public class CalendarioVisual extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dayButton.getText()));
                     Date date = calendar.getTime();
-                    
+
                     // Formato para mostrar en JOptionPane
                     SimpleDateFormat formatToShow = new SimpleDateFormat("dd/MM/yyyy");
                     String dateStringToShow = formatToShow.format(date);
-
-                    // Formato para guardar en fechaSeleccionada
-                    SimpleDateFormat formatToSave = new SimpleDateFormat("d 'de' MMMM 'de' yyyy", new java.util.Locale("es"));
-                    String dateStringToSave = formatToSave.format(date);
 
                     Object[] opciones = {"Reservar", "Cancelar"};
                     JFrame jf = new JFrame();
                     jf.setAlwaysOnTop(true);
                     int escogida = JOptionPane.showOptionDialog(jf, "¿Desea seleccionar la fecha " + dateStringToShow + " ?", "Reservar Fecha", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
-                    
+
                     if (escogida == 0) {
-                       fechaSeleccionada = dateStringToSave;
+                       fechaSeleccionada = String.valueOf(dateStringToShow);
                        notifyObservers();
                        notifyObserversE();
                        instance.dispose();
                     }
-                    
+
                 }
             });
             calendar.set(Calendar.DAY_OF_MONTH, indice);
-            if (calendar.before(today)) {
+            if (calendar.before(today) && calendar.get(Calendar.DAY_OF_MONTH) != currentDay) {
                 dayButton.setEnabled(false);
             }
             calendarPanel.add(dayButton);
@@ -214,6 +216,7 @@ public class CalendarioVisual extends javax.swing.JFrame {
         calendarPanel.revalidate();
         calendarPanel.repaint();
     }
+
     /**
      * @param args the command line arguments
      */

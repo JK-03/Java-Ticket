@@ -31,6 +31,8 @@ public class CrearEvento extends javax.swing.JFrame {
     private ArrayList<UsuariosInfo> listaUsuarios;
     private String nombreLabel, fechaReservada;
     private UsuariosInfo usuarioLogueado;
+    private double seguro;
+    private Date fecha;
     
     public CrearEvento(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
         listaUsuarios = listaUsuariosExterna;
@@ -68,15 +70,15 @@ public class CrearEvento extends javax.swing.JFrame {
         CódigoField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         DescripcionField = new javax.swing.JTextArea();
-        ReligiosoPanel = new javax.swing.JPanel();
-        SeguroFieldR = new javax.swing.JTextField();
-        AforoFieldR = new javax.swing.JTextField();
-        FondoReligioso = new javax.swing.JLabel();
         MusicalPanel = new javax.swing.JPanel();
         TipoMusicalBox = new javax.swing.JComboBox<>(MusicalTipo.values());
         SeguroFieldM = new javax.swing.JTextField();
         AforoFieldM = new javax.swing.JTextField();
         FondoMusical = new javax.swing.JLabel();
+        ReligiosoPanel = new javax.swing.JPanel();
+        SeguroFieldR = new javax.swing.JTextField();
+        AforoFieldR = new javax.swing.JTextField();
+        FondoReligioso = new javax.swing.JLabel();
         DeportePanel = new javax.swing.JPanel();
         TipoDeporteBox = new javax.swing.JComboBox<>(DeportesTipo.values());
         AforoFieldD = new javax.swing.JTextField();
@@ -194,37 +196,6 @@ public class CrearEvento extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 313, 370, 110));
 
-        ReligiosoPanel.setBackground(new java.awt.Color(255, 255, 255));
-        ReligiosoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        SeguroFieldR.setEditable(false);
-        SeguroFieldR.setBackground(new java.awt.Color(253, 228, 240));
-        SeguroFieldR.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        SeguroFieldR.setForeground(new java.awt.Color(0, 0, 0));
-        SeguroFieldR.setBorder(null);
-        SeguroFieldR.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                SeguroFieldRKeyTyped(evt);
-            }
-        });
-        ReligiosoPanel.add(SeguroFieldR, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 65, 270, 40));
-
-        AforoFieldR.setBackground(new java.awt.Color(253, 228, 240));
-        AforoFieldR.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        AforoFieldR.setForeground(new java.awt.Color(0, 0, 0));
-        AforoFieldR.setBorder(null);
-        AforoFieldR.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                AforoFieldRKeyTyped(evt);
-            }
-        });
-        ReligiosoPanel.add(AforoFieldR, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 65, 270, 40));
-
-        FondoReligioso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/InterfazReligioso.png"))); // NOI18N
-        ReligiosoPanel.add(FondoReligioso, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel1.add(ReligiosoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
-
         MusicalPanel.setBackground(new java.awt.Color(255, 255, 255));
         MusicalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -266,6 +237,37 @@ public class CrearEvento extends javax.swing.JFrame {
         MusicalPanel.add(FondoMusical, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel1.add(MusicalPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
+
+        ReligiosoPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ReligiosoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        SeguroFieldR.setEditable(false);
+        SeguroFieldR.setBackground(new java.awt.Color(253, 228, 240));
+        SeguroFieldR.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        SeguroFieldR.setForeground(new java.awt.Color(0, 0, 0));
+        SeguroFieldR.setBorder(null);
+        SeguroFieldR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SeguroFieldRKeyTyped(evt);
+            }
+        });
+        ReligiosoPanel.add(SeguroFieldR, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 65, 270, 40));
+
+        AforoFieldR.setBackground(new java.awt.Color(253, 228, 240));
+        AforoFieldR.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        AforoFieldR.setForeground(new java.awt.Color(0, 0, 0));
+        AforoFieldR.setBorder(null);
+        AforoFieldR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AforoFieldRKeyTyped(evt);
+            }
+        });
+        ReligiosoPanel.add(AforoFieldR, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 65, 270, 40));
+
+        FondoReligioso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/InterfazReligioso.png"))); // NOI18N
+        ReligiosoPanel.add(FondoReligioso, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.add(ReligiosoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 540, 870, 170));
 
         DeportePanel.setBackground(new java.awt.Color(255, 255, 255));
         DeportePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -413,11 +415,23 @@ public class CrearEvento extends javax.swing.JFrame {
 
     public void updateFechaReservada(String fecha) {
         fechaReservada = fecha;
+        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", new Locale("es", "ES"));
+        try {
+            this.fecha = formatoFecha.parse(fechaReservada);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         FechaField.setText(fechaReservada);
     }
     
     private void AforoFieldMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AforoFieldMKeyTyped
-        // TODO add your handling code here:
+        int tecla = evt.getKeyChar();
+        boolean valido = tecla >= 48 && tecla <= 57;
+
+        if(!valido){
+            evt.consume();
+        }
     }//GEN-LAST:event_AforoFieldMKeyTyped
 
     private void SeguroFieldMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SeguroFieldMKeyTyped
@@ -469,13 +483,6 @@ public class CrearEvento extends javax.swing.JFrame {
         }
         
         double renta = Integer.parseInt(rentaS);
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
-        Date fecha = null;
-        try {
-            fecha = formatoFecha.parse(fechaS);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         
         switch (tipoEvento) {
             case "Deportivo":
@@ -502,6 +509,7 @@ public class CrearEvento extends javax.swing.JFrame {
                     Main_JavaTicket.gestionarEventos.agregarEvento(eventoD);
                     agregarIdAlUsuario(codigo);
                     
+                    
                     AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
                     administracionEventos.setVisible(true);
                     this.setVisible(false);
@@ -521,6 +529,7 @@ public class CrearEvento extends javax.swing.JFrame {
                 
                 if (eventoM.setAforo(aforoM)) {
                     Main_JavaTicket.gestionarEventos.agregarEvento(eventoM);
+                    eventoM.setSeguro(seguro);
                     agregarIdAlUsuario(codigo);
                     
                     AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
@@ -542,7 +551,6 @@ public class CrearEvento extends javax.swing.JFrame {
                 if (eventoR.setAforo(aforoR)) {
                     Main_JavaTicket.gestionarEventos.agregarEvento(eventoR);
                     agregarIdAlUsuario(codigo);
-                    
                     AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
                     administracionEventos.setVisible(true);
                     this.setVisible(false);
@@ -570,7 +578,6 @@ public class CrearEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_FechaFieldKeyTyped
 
     private void FechaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FechaFieldActionPerformed
-        FechaField.setText(fechaReservada);
     }//GEN-LAST:event_FechaFieldActionPerformed
 
     private void FechaFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FechaFieldMouseClicked
@@ -590,7 +597,7 @@ public class CrearEvento extends javax.swing.JFrame {
         
         if (!RentaField.getText().isEmpty() && tipoEvento.equals("Musical")) {
             double renta = Integer.parseInt(RentaField.getText());
-            double seguro = renta * EventoMusical.CUOTA_SEGURO / 100;
+            seguro = renta * EventoMusical.CUOTA_SEGURO / 100;
             SeguroFieldM.setText("Lps. " + String.valueOf(seguro));
         } else if (RentaField.getText().isEmpty() || RentaField.getText().isBlank()) {
             SeguroFieldM.setText(null);
