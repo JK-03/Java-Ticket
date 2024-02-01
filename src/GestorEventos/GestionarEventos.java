@@ -96,6 +96,7 @@ public class GestionarEventos {
                 } else {
                     double indemnizacion = evento.getMontoRenta() * 0.5;
                     JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado. Se cobrará una indemnización del 50%: " + indemnizacion, "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                    evento.setIndemnizacion(true);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado sin penalización.", "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);

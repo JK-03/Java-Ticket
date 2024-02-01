@@ -118,7 +118,9 @@ public class AdministracionEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEditarMouseClicked
 
     private void BotonVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonVerMouseClicked
-        // TODO add your handling code here:
+        VerEvento verEvento = new VerEvento(listaUsuarios, nombreLabel, usuarioLogueado);
+        verEvento.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonVerMouseClicked
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
@@ -131,7 +133,6 @@ public class AdministracionEventos extends javax.swing.JFrame {
         EliminarEvento eliminarEvento = new EliminarEvento(listaUsuarios, nombreLabel, usuarioLogueado);
         eliminarEvento.setVisible(true);
         this.setVisible(false);
-        
     }//GEN-LAST:event_BotonEliminarMouseClicked
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked

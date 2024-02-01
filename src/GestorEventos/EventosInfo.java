@@ -16,8 +16,7 @@ public abstract class EventosInfo {
     protected String descripcion;
     protected Date fecha;
     protected double montoRenta;
-    protected boolean cancelado = false;
-    protected boolean realizado = false;
+    protected boolean cancelado = false, realizado = false, indemnizacion = false;
 
     public EventosInfo(String codigo, String titulo, String descripcion, Date fecha, double montoRenta) {
         this.codigo = codigo;
@@ -81,5 +80,20 @@ public abstract class EventosInfo {
 
     public void setRealizado(boolean realizado) {
         this.realizado = realizado;
+    }
+    
+    public void verificarSiYaRealizado() {
+        Date hoy = new Date();
+        if (fecha != null && !fecha.after(hoy)) {
+            setRealizado(true);
+        }
+    }
+
+    public boolean isIndemnizacion() {
+        return indemnizacion;
+    }
+
+    public void setIndemnizacion(boolean indemnizacion) {
+        this.indemnizacion = indemnizacion;
     }
 }
