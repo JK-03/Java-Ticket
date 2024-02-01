@@ -104,7 +104,7 @@ public class GestionarUsuarios {
     }
     
     public void eliminarUsuario(UsuariosInfo usuarioEliminar) {
-        listaUsuarios.remove(usuarioEliminar);
+            listaUsuarios.remove(usuarioEliminar);
     }
     
     

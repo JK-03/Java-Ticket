@@ -47,6 +47,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
         NombreCompletoField = new javax.swing.JTextField();
         BotonRegresar = new javax.swing.JLabel();
         BotonEliminar = new javax.swing.JLabel();
+        TipoUsuarioLabel = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,6 +106,11 @@ public class BorrarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 500, 220, 40));
 
+        TipoUsuarioLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        TipoUsuarioLabel.setForeground(new java.awt.Color(0, 0, 0));
+        TipoUsuarioLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(TipoUsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 230, -1));
+
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/EliminarUsuario.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -125,7 +131,17 @@ public class BorrarUsuario extends javax.swing.JFrame {
 
     private void tiposUsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposUsuariosBoxActionPerformed
         usuarioSeleccionado = (UsuariosInfo) tiposUsuariosBox.getSelectedItem();
-    
+        
+        if (usuarioSeleccionado.getUsuario().equals("")) {
+            TipoUsuarioLabel.setText("");
+        } else if (usuarioSeleccionado.getClass().getName().toString().equals("GestorUsuarios.Administrador")) {
+            TipoUsuarioLabel.setText("Tipo Usuario: Administrador");
+        } else if (usuarioSeleccionado.getClass().getName().toString().equals("GestorUsuarios.Limitado")) {
+            TipoUsuarioLabel.setText("Tipo Usuario: Limitado");
+        } else if (usuarioSeleccionado.getClass().getName().toString().equals("GestorUsuarios.Contenidos")) {
+            TipoUsuarioLabel.setText("Tipo Usuario: Contenido");
+        }
+        
         NombreCompletoField.setText(usuarioSeleccionado.getNombreCompleto());
         UsuarioField.setText(usuarioSeleccionado.getUsuario());
         ContraField.setText(usuarioSeleccionado.getContra());
@@ -141,7 +157,10 @@ public class BorrarUsuario extends javax.swing.JFrame {
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
         int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta cuenta?", "Eliminar Cuenta", JOptionPane.YES_NO_OPTION);
         
-        if (opcion == JOptionPane.YES_OPTION) {
+        if (usuarioSeleccionado.getUsuario().equals("admin")) {
+            JOptionPane.showMessageDialog(null, "Usuario admin no puede ser eliminado.", "Denegado", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (opcion == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "¡Usuario eliminado exitosamente!", "Usuario Eliminado", JOptionPane.INFORMATION_MESSAGE);
             tiposUsuariosBox.removeItem(usuarioSeleccionado);
             gestionarUsuarios.eliminarUsuario(usuarioSeleccionado);
@@ -194,6 +213,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField EdadField;
     private javax.swing.JLabel Fondo;
     private javax.swing.JTextField NombreCompletoField;
+    private javax.swing.JLabel TipoUsuarioLabel;
     private javax.swing.JTextField UsuarioField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<UsuariosInfo> tiposUsuariosBox;

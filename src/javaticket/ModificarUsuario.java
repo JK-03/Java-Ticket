@@ -48,6 +48,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
         NombreCompletoField = new javax.swing.JTextField();
         BotonRegresar = new javax.swing.JLabel();
         BotonModificar = new javax.swing.JLabel();
+        TipoUsuarioLabel = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,6 +107,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         });
         jPanel1.add(BotonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 500, 220, 40));
 
+        TipoUsuarioLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        TipoUsuarioLabel.setForeground(new java.awt.Color(0, 0, 0));
+        TipoUsuarioLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(TipoUsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 230, -1));
+
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/ModificarUsuario.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -150,6 +156,17 @@ public class ModificarUsuario extends javax.swing.JFrame {
 
     private void tiposUsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposUsuariosBoxActionPerformed
         UsuariosInfo usuarioSeleccionado = (UsuariosInfo) tiposUsuariosBox.getSelectedItem();
+        
+        if (usuarioSeleccionado.getUsuario().equals("")) {
+            TipoUsuarioLabel.setText("");
+        } else if (usuarioSeleccionado.getClass().getName().toString().equals("GestorUsuarios.Administrador")) {
+            TipoUsuarioLabel.setText("Tipo Usuario: Administrador");
+        } else if (usuarioSeleccionado.getClass().getName().toString().equals("GestorUsuarios.Limitado")) {
+            TipoUsuarioLabel.setText("Tipo Usuario: Limitado");
+        } else if (usuarioSeleccionado.getClass().getName().toString().equals("GestorUsuarios.Contenidos")) {
+            TipoUsuarioLabel.setText("Tipo Usuario: Contenido");
+        }
+        
         index = listaUsuarios.indexOf(usuarioSeleccionado);
         NombreCompletoField.setText(usuarioSeleccionado.getNombreCompleto());
         UsuarioField.setText(usuarioSeleccionado.getUsuario());
@@ -199,6 +216,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField EdadField;
     private javax.swing.JLabel Fondo;
     private javax.swing.JTextField NombreCompletoField;
+    private javax.swing.JLabel TipoUsuarioLabel;
     private javax.swing.JTextField UsuarioField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<UsuariosInfo> tiposUsuariosBox;

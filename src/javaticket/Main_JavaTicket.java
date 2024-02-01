@@ -4,11 +4,14 @@
  */
 package javaticket;
 
+import GestorEventos.GestionarEventos;
+
 /**
  *
  * @author jenniferbueso
  */
 public class Main_JavaTicket {
+    public static GestionarEventos gestionarEventos = new GestionarEventos();
     
     public static void main(String[] args) {
         PantallaInicio pantallaInicio = new PantallaInicio(null);

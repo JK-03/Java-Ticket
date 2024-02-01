@@ -106,7 +106,15 @@ public class AdministracionEventos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEditarMouseClicked
-        // TODO add your handling code here:
+        String clase = usuarioLogueado.getClass().getName();
+        
+        if (clase.equals("GestorUsuarios.Limitado")) {
+            JOptionPane.showMessageDialog(null, "Lo siento, esta opción no está disponible para usuarios LIMITADOS.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+        } else {
+            EditarEvento editarEvento = new EditarEvento(listaUsuarios, nombreLabel, usuarioLogueado);
+            editarEvento.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_BotonEditarMouseClicked
 
     private void BotonVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonVerMouseClicked
@@ -120,7 +128,9 @@ public class AdministracionEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
-           
+        EliminarEvento eliminarEvento = new EliminarEvento(listaUsuarios, nombreLabel, usuarioLogueado);
+        eliminarEvento.setVisible(true);
+        this.setVisible(false);
         
     }//GEN-LAST:event_BotonEliminarMouseClicked
 

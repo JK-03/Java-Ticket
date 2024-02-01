@@ -32,6 +32,7 @@ public class CalendarioVisual extends javax.swing.JFrame {
     public static String fechaSeleccionada;
     private static CalendarioVisual instance;
     private static List<CrearEvento> observers = new ArrayList<>();
+    private static List<EditarEvento> observersE = new ArrayList<>();
     
     public CalendarioVisual() {
         initComponents();
@@ -135,8 +136,22 @@ public class CalendarioVisual extends javax.swing.JFrame {
         observers.remove(observer);
     }
 
+    public static void addObserverE(EditarEvento observer) {
+        observersE.add(observer);
+    }
+
+    public static void removeObserverE(EditarEvento observer) {
+        observersE.remove(observer);
+    }
+    
     public static void notifyObservers() {
         for (CrearEvento observer : observers) {
+            observer.updateFechaReservada(fechaSeleccionada);
+        }
+    }
+    
+    public static void notifyObserversE() {
+        for (EditarEvento observer : observersE) {
             observer.updateFechaReservada(fechaSeleccionada);
         }
     }
@@ -184,6 +199,7 @@ public class CalendarioVisual extends javax.swing.JFrame {
                     if (escogida == 0) {
                        fechaSeleccionada = dateStringToSave;
                        notifyObservers();
+                       notifyObserversE();
                        instance.dispose();
                     }
                     

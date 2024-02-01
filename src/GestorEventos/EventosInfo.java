@@ -16,6 +16,8 @@ public abstract class EventosInfo {
     protected String descripcion;
     protected Date fecha;
     protected double montoRenta;
+    protected boolean cancelado = false;
+    protected boolean realizado = false;
 
     public EventosInfo(String codigo, String titulo, String descripcion, Date fecha, double montoRenta) {
         this.codigo = codigo;
@@ -63,5 +65,21 @@ public abstract class EventosInfo {
 
     public void setMontoRenta(double montoRenta) {
         this.montoRenta = montoRenta;
+    }
+    
+    public boolean isCancelado() {
+        return cancelado;
+    }
+
+    public void setCancelado(boolean cancelado) {
+        this.cancelado = cancelado;
+    }
+    
+    public boolean yaRealizado() {
+        return realizado;
+    }
+
+    public void setRealizado(boolean realizado) {
+        this.realizado = realizado;
     }
 }

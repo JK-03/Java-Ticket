@@ -4,7 +4,10 @@
  */
 package GestorUsuarios;
 
+import GestorEventos.EventosInfo;
+import GestorEventos.GestionarEventos;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *

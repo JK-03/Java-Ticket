@@ -17,21 +17,21 @@ public class EventoReligioso extends EventosInfo {
     private int aforo;
     private int convertidos;
 
-    public EventoReligioso(String codigo, String titulo, String descripcion, Date fecha, double montoRenta, int aforo) {
+    public EventoReligioso(String codigo, String titulo, String descripcion, Date fecha, double montoRenta,int aforo) {
         super(codigo, titulo, descripcion, fecha, montoRenta);
-        setAforo(aforo);
     }
 
     public int getAforo() {
         return aforo;
     }
 
-    public void setAforo(int aforo) {
+    public boolean setAforo(int aforo) {
         if (aforo > AFORO_MAXIMO) {
-            JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido." + "El aforo será establecido a " + AFORO_MAXIMO, "Crear Evento Religioso", JOptionPane.WARNING_MESSAGE);
-            this.aforo = AFORO_MAXIMO;
+            JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido de " + AFORO_MAXIMO + ". Por favor, introduce un nuevo valor.", "Crear Evento Deportivo", JOptionPane.WARNING_MESSAGE);
+            return false;
         } else {
             this.aforo = aforo;
+            return true;
         }
     }
 

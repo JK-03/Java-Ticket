@@ -20,13 +20,10 @@ import java.util.ArrayList;
 public class PantallaInicio extends javax.swing.JFrame {
     ArrayList<UsuariosInfo> listaUsuarios;
     ArrayList<EventosInfo> listaEventos;
-    public static GestionarEventos gestionarEventos;
     private UsuariosInfo usuarioLogueado;
     
     public PantallaInicio(ArrayList<UsuariosInfo> listaUsuariosExterna) {
         inicializarListaUsuarios(listaUsuariosExterna);
-        gestionarEventos = new GestionarEventos(listaEventos);
-        
         initComponents();
     }
 
@@ -37,8 +34,8 @@ public class PantallaInicio extends javax.swing.JFrame {
             // Agregar usuario predeterminado
             listaUsuarios.add(new Administrador("", "", "", 0));
             listaUsuarios.add(new Administrador("Administrador", "admin", "supersecreto", 20));
-            listaUsuarios.add(new Contenidos("Limitado", "limitado", "12345", 20));
-            listaUsuarios.add(new Limitado("Contenido", "contenido", "12345", 20));
+            listaUsuarios.add(new Limitado("Limitado", "limitado", "12345", 20));
+            listaUsuarios.add(new Contenidos("Contenido", "contenido", "12345", 20));
         }
     }
     
