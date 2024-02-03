@@ -130,7 +130,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEventosMouseClicked
 
     private void BotonReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonReportesMouseClicked
-        // TODO add your handling code here:
+        Reportes reportes = new Reportes(listaUsuarios, nombreLabel, usuarioLogueado);
+        reportes.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonReportesMouseClicked
 
     private void BotonUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonUsuariosMouseClicked
@@ -146,9 +148,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonUsuariosMouseClicked
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        LogIn logIn = new LogIn(listaUsuarios, usuarioLogueado);
-        logIn.setVisible(true);
-        this.setVisible(false);
+        int opcionSalir = JOptionPane.showConfirmDialog(null, "¿Desea cerrar sesión?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (opcionSalir == JOptionPane.YES_OPTION) {
+            LogIn logIn = new LogIn(listaUsuarios, usuarioLogueado);
+            logIn.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonSalirMouseClicked

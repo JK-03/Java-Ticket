@@ -565,9 +565,12 @@ public class EditarEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_AforoFieldRKeyTyped
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
-        administracionEventos.setVisible(true);
-        this.setVisible(false);
+        int opcionSalir = JOptionPane.showConfirmDialog(null, "¿Desea salir sin guardas sus cambios?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (opcionSalir == JOptionPane.YES_OPTION) {
+            AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
+            administracionEventos.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked

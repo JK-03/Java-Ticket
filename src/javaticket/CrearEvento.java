@@ -415,7 +415,6 @@ public class CrearEvento extends javax.swing.JFrame {
 
     public void updateFechaReservada(String fecha) {
         fechaReservada = fecha;
-        
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", new Locale("es", "ES"));
         try {
             this.fecha = formatoFecha.parse(fechaReservada);

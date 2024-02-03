@@ -7,9 +7,13 @@ package GestorEventos;
 import GestorUsuarios.Administrador;
 import GestorUsuarios.Contenidos;
 import GestorUsuarios.UsuariosInfo;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 /**
@@ -31,10 +35,14 @@ public class GestionarEventos {
     }
    
    public boolean agregarEvento(EventosInfo evento) {
-       if (listaEventos.contains(evento)) {
+        if (listaEventos.contains(evento)) {
             JOptionPane.showMessageDialog(null, "El evento con el código " + evento.getCodigo() + " ya existe. Por favor, intenta agregar un evento diferente.", "Evento Existente", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
+            Date fechaActual = new Date();
+            if (!evento.getFecha().after(fechaActual)) {
+                evento.setRealizado(true);
+            }
             boolean isAdded = listaEventos.add(evento);
             if (isAdded) {
                 JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido agregado con éxito.", "Evento Creado", JOptionPane.INFORMATION_MESSAGE);
@@ -43,7 +51,7 @@ public class GestionarEventos {
             }
             return isAdded;
         }
-   }
+    }
    
    //Función Recursiva
    public EventosInfo buscarEvento(String codigo) {
@@ -116,9 +124,113 @@ public class GestionarEventos {
            return null;
        }
    }
+   
+   //Reportes
+   public String buscarEventosRealizados() {
+        Collections.sort(listaEventos, new Comparator<EventosInfo>() {
+                @Override
+                public int compare(EventosInfo e1, EventosInfo e2) {
+                    return e1.getFecha().compareTo(e2.getFecha());
+                }
+            });
 
+        return buscarEventosRealizados(new StringBuilder(), 0).toString();
+    }
 
-
-
-
-}
+    private StringBuilder buscarEventosRealizados(StringBuilder eventosRealizados, int index) {
+        if (index < listaEventos.size()) {
+            EventosInfo evento = listaEventos.get(index);
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", new Locale("es", "ES"));
+            String fecha = formato.format(evento.getFecha());
+            if (evento.yaRealizado()) {
+                if (evento instanceof EventoDeportivo) {
+                    eventosRealizados.append(evento.getCodigo() + " - ")
+                            .append("Deportivo - ")
+                            .append(evento.getTitulo() + " - ")
+                            .append(fecha + " - ")
+                            .append(evento.getMontoRenta() + "\n");
+                } else if (evento instanceof EventoMusical) {
+                    eventosRealizados.append(evento.getCodigo() + " - ")
+                            .append("Musical - ")
+                            .append(evento.getTitulo() + " - ")
+                            .append(fecha + " - ")
+                            .append(evento.getMontoRenta() + "\n");
+                } else if (evento instanceof EventoReligioso) {
+                    eventosRealizados.append(evento.getCodigo() + " - ")
+                            .append("Religioso - ")
+                            .append(evento.getTitulo() + " - ")
+                            .append(fecha + " - ")
+                            .append(evento.getMontoRenta() + "\n");
+                }
+            }
+            return buscarEventosRealizados(eventosRealizados, index + 1);
+        }
+        return eventosRealizados;
+    }
+    
+    //Reportes - Eventos Realizados
+    public int contadorDeportivoRealizado() {
+        return contadorDeportivoRealizado(0,0);
+    }
+    
+    private int contadorDeportivoRealizado(int contadorD, int index) {
+        if (index < listaEventos.size()) {
+            EventosInfo evento = listaEventos.get(index);
+            
+            if (evento instanceof EventoDeportivo && evento.yaRealizado()) {
+                contadorD++;
+            }
+            return contadorDeportivoRealizado(contadorD, index + 1);
+        }
+        return contadorD;
+    }        
+    
+    public int contadorMusicalRealizado() {
+        return contadorMusicalRealizado(0,0);
+    }
+    
+    private int contadorMusicalRealizado(int contadorM, int index) {
+        if (index < listaEventos.size()) {
+            EventosInfo evento = listaEventos.get(index);
+            
+            if (evento instanceof EventoMusical && evento.yaRealizado()) {
+                contadorM++;
+            }
+            return contadorMusicalRealizado(contadorM, index + 1);
+        }
+        return contadorM;
+    }   
+    
+    public int contadorReligiosoRealizado() {
+        return contadorReligiosoRealizado(0,0);
+    }
+    
+    private int contadorReligiosoRealizado(int contadorR, int index) {
+        if (index < listaEventos.size()) {
+            EventosInfo evento = listaEventos.get(index);
+            
+            if (evento instanceof EventoReligioso && evento.yaRealizado()) {
+                contadorR++;
+            }
+            return contadorReligiosoRealizado(contadorR, index + 1);
+        }
+        return contadorR;
+    }   
+    
+    public double montoGeneradoRealizado() {
+        return montoGeneradoRealizado(0, 0);
+    }
+    
+    private double montoGeneradoRealizado(double montoGenerado, int index) {
+        if (index < listaEventos.size()) {
+            EventosInfo evento = listaEventos.get(index);
+            
+            if (evento.yaRealizado()) {
+                montoGenerado += evento.montoRenta;
+            }
+            return montoGeneradoRealizado(montoGenerado, index + 1);
+        }
+        return montoGenerado;
+    }
+    
+ }
