@@ -4,6 +4,9 @@
  */
 package javaticket;
 
+import AdministracionEventos_Interfaz.AdministracionEventos;
+import AdministracionUsuario_Interfaz.AdministracionUsuarios;
+import Reportes_Interfaz.Reportes;
 import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
 import java.time.LocalTime;
@@ -16,20 +19,14 @@ import javax.swing.JOptionPane;
  * @author jenniferbueso
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-    ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel;
-    private GestionarUsuarios gestionarUsuarios;
     private UsuariosInfo usuarioLogueado;
     private Calendar hora = Calendar.getInstance();
     
-    public MenuPrincipal(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        this.nombreLabel = nombreLabel;
-        gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
+    public MenuPrincipal(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
         initComponents();
         
-        UsuarioLabel.setText(usuarioLogueado.toString());
+        UsuarioLabel.setText(usuarioLogueado.getUsuario().toString());
     }
 
     /**
@@ -124,13 +121,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEventosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosMouseClicked
-        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
+        AdministracionEventos administracionEventos = new AdministracionEventos(usuarioLogueado);
         administracionEventos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonEventosMouseClicked
 
     private void BotonReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonReportesMouseClicked
-        Reportes reportes = new Reportes(listaUsuarios, nombreLabel, usuarioLogueado);
+        Reportes reportes = new Reportes(usuarioLogueado);
         reportes.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonReportesMouseClicked
@@ -139,7 +136,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         String clase = usuarioLogueado.getClass().getName();
     
         if (clase.equals("GestorUsuarios.Administrador")) {
-            AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel, usuarioLogueado);
+            AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(usuarioLogueado);
             administracionUsuarios.setVisible(true);
             this.setVisible(false);
         } else {
@@ -150,7 +147,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
         int opcionSalir = JOptionPane.showConfirmDialog(null, "¿Desea cerrar sesión?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (opcionSalir == JOptionPane.YES_OPTION) {
-            LogIn logIn = new LogIn(listaUsuarios, usuarioLogueado);
+            LogIn logIn = new LogIn(usuarioLogueado);
             logIn.setVisible(true);
             this.setVisible(false);
         }
@@ -193,7 +190,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal(null, null, null).setVisible(true);
+                new MenuPrincipal(null).setVisible(true);
             }
         });
     }

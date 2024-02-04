@@ -4,7 +4,9 @@
  */
 package javaticket;
 
+import GestorEventos.ContadoresReportes;
 import GestorEventos.GestionarEventos;
+import GestorUsuarios.GestionarUsuarios;
 
 /**
  *
@@ -12,6 +14,8 @@ import GestorEventos.GestionarEventos;
  */
 public class Main_JavaTicket {
     public static GestionarEventos gestionarEventos = new GestionarEventos();
+    public static GestionarUsuarios gestionarUsuarios = new GestionarUsuarios();
+    public static ContadoresReportes contadoresReportes = new ContadoresReportes(gestionarEventos.getListaEventos());
     
     public static void main(String[] args) {
         PantallaInicio pantallaInicio = new PantallaInicio(null);

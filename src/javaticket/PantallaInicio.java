@@ -18,27 +18,12 @@ import java.util.ArrayList;
  * @author jenniferbueso
  */
 public class PantallaInicio extends javax.swing.JFrame {
-    ArrayList<UsuariosInfo> listaUsuarios;
-    ArrayList<EventosInfo> listaEventos;
     private UsuariosInfo usuarioLogueado;
     
     public PantallaInicio(ArrayList<UsuariosInfo> listaUsuariosExterna) {
-        inicializarListaUsuarios(listaUsuariosExterna);
         initComponents();
     }
 
-    private void inicializarListaUsuarios(ArrayList<UsuariosInfo> listaUsuariosExterna) {
-        listaUsuarios = (listaUsuariosExterna == null) ? new ArrayList<>() : listaUsuariosExterna;
-        
-        if (listaUsuariosExterna==null) {
-            // Agregar usuario predeterminado
-            listaUsuarios.add(new Administrador("", "", "", 0));
-            listaUsuarios.add(new Administrador("Administrador", "admin", "supersecreto", 20));
-            listaUsuarios.add(new Limitado("Limitado", "limitado", "12345", 20));
-            listaUsuarios.add(new Contenidos("Contenido", "contenido", "12345", 20));
-        }
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,7 +60,7 @@ public class PantallaInicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonLogInMouseClicked
-        LogIn logIn = new LogIn(listaUsuarios, usuarioLogueado);
+        LogIn logIn = new LogIn(usuarioLogueado);
         logIn.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonLogInMouseClicked

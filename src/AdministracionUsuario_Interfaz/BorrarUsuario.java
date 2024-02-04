@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package AdministracionUsuario_Interfaz;
 
 import GestorUsuarios.GestionarUsuarios;
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
+import javaticket.Main_JavaTicket;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,20 +15,15 @@ import javax.swing.JOptionPane;
  * @author jenniferbueso
  */
 public class BorrarUsuario extends javax.swing.JFrame {
-    private GestionarUsuarios gestionarUsuarios;
-    ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel;
     private UsuariosInfo usuarioLogueado, usuarioSeleccionado;
     int index;
    
-    public BorrarUsuario(ArrayList<UsuariosInfo> listaUsuariosExterna, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
+    public BorrarUsuario(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
         
-        gestionarUsuarios.cargarUsuario(tiposUsuariosBox);
+        Main_JavaTicket.gestionarUsuarios.cargarUsuario(tiposUsuariosBox);
     }
 
     /**
@@ -149,7 +145,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tiposUsuariosBoxActionPerformed
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(listaUsuarios, nombreLabel, usuarioLogueado);
+        AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(usuarioLogueado);
         administracionUsuarios.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
@@ -163,7 +159,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
         } else if (opcion == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "¡Usuario eliminado exitosamente!", "Usuario Eliminado", JOptionPane.INFORMATION_MESSAGE);
             tiposUsuariosBox.removeItem(usuarioSeleccionado);
-            gestionarUsuarios.eliminarUsuario(usuarioSeleccionado);
+            Main_JavaTicket.gestionarUsuarios.eliminarUsuario(usuarioSeleccionado);
             NombreCompletoField.setText("");
             UsuarioField.setText("");
             ContraField.setText("");
@@ -201,7 +197,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BorrarUsuario(null, null).setVisible(true);
+                new BorrarUsuario(null).setVisible(true);
             }
         });
     }

@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package AdministracionEventos_Interfaz;
 
+import AdministracionEventos_Interfaz.AdministracionEventos;
+import AdministracionUsuario_Interfaz.CalendarioVisual;
 import GestorEventos.DeportesTipo;
 import GestorEventos.EventoDeportivo;
 import GestorEventos.EventoMusical;
@@ -19,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import javaticket.Main_JavaTicket;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -28,8 +31,7 @@ import javax.swing.JOptionPane;
  * @author jenniferbueso
  */
 public class VerEvento extends javax.swing.JFrame {
-    private ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel, fechaReservada, tipoEvento, panelActual, codigo, titulo, descripcion, rentaS, fechaS;
+    private String fechaReservada, tipoEvento, panelActual, codigo, titulo, descripcion, rentaS, fechaS;
     private double renta;
     private Date fecha;
     private UsuariosInfo usuarioLogueado;
@@ -38,9 +40,7 @@ public class VerEvento extends javax.swing.JFrame {
     private EventoMusical eventoMusical;
     private EventoReligioso eventoReligioso;
     
-    public VerEvento(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        this.nombreLabel = nombreLabel;
+    public VerEvento(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
@@ -556,7 +556,7 @@ public class VerEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_AforoFieldRKeyTyped
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
+        AdministracionEventos administracionEventos = new AdministracionEventos(usuarioLogueado);
         administracionEventos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
@@ -831,7 +831,7 @@ public class VerEvento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerEvento(null, null, null).setVisible(true);
+                new VerEvento(null).setVisible(true);
             }
         });
     }

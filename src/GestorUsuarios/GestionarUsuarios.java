@@ -15,8 +15,18 @@ import javax.swing.JOptionPane;
 public class GestionarUsuarios {
     private ArrayList<UsuariosInfo> listaUsuarios;
     
-    public GestionarUsuarios(ArrayList<UsuariosInfo> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
+    public GestionarUsuarios() {
+        listaUsuarios = new ArrayList();
+        
+        listaUsuarios.add(new Administrador("", "", "", 0));
+        listaUsuarios.add(new Administrador("Administrador", "admin", "supersecreto", 20));
+        listaUsuarios.add(new Limitado("Limitado", "limitado", "12345", 20));
+        listaUsuarios.add(new Contenidos("Contenido", "contenido", "12345", 20));
+        
+    }
+
+    public ArrayList<UsuariosInfo> getListaUsuarios() {
+        return listaUsuarios;
     }
     
     //Funcion Recursiva

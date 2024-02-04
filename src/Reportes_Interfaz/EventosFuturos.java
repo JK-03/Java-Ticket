@@ -2,33 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package Reportes_Interfaz;
 
 import GestorUsuarios.UsuariosInfo;
-import java.util.ArrayList;
+import javaticket.Main_JavaTicket;
 
 /**
  *
  * @author jenniferbueso
  */
-public class EventosRealizados extends javax.swing.JFrame {
-    ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel;
+public class EventosFuturos extends javax.swing.JFrame {
     private UsuariosInfo usuarioLogueado;
-   
-    public EventosRealizados(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        this.nombreLabel = nombreLabel;
+    
+    public EventosFuturos(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
-        
         initComponents();
         
-        EventosArea.setText(Main_JavaTicket.gestionarEventos.buscarEventosRealizados());
-        DeportivoLabel.setText(String.valueOf(Main_JavaTicket.gestionarEventos.contadorDeportivoRealizado()));
-        MusicalLabel.setText(String.valueOf(Main_JavaTicket.gestionarEventos.contadorMusicalRealizado()));
-        ReligiosoLabel.setText(String.valueOf(Main_JavaTicket.gestionarEventos.contadorReligiosoRealizado()));
-        
-        MontoGeneradoLabel.setText("Lps. " + String.valueOf(Main_JavaTicket.gestionarEventos.montoGeneradoRealizado()));
+        EventosArea.setText(Main_JavaTicket.contadoresReportes.buscarEventosFuturos());
+        DeportivoLabel.setText(String.valueOf(Main_JavaTicket.contadoresReportes.contadorDeportivoFuturo()));
+        MusicalLabel.setText(String.valueOf(Main_JavaTicket.contadoresReportes.contadorMusicalFuturo()));
+        ReligiosoLabel.setText(String.valueOf(Main_JavaTicket.contadoresReportes.contadorReligiosoFuturo()));
+        MontoTotalLabel.setText("Lps. " + String.valueOf(Main_JavaTicket.contadoresReportes.MontoTotal()));
     }
 
     /**
@@ -43,7 +37,7 @@ public class EventosRealizados extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         EventosArea = new javax.swing.JTextArea();
-        MontoGeneradoLabel = new javax.swing.JLabel();
+        MontoTotalLabel = new javax.swing.JLabel();
         ReligiosoLabel = new javax.swing.JLabel();
         MusicalLabel = new javax.swing.JLabel();
         DeportivoLabel = new javax.swing.JLabel();
@@ -67,11 +61,11 @@ public class EventosRealizados extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 360, 270));
 
-        MontoGeneradoLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        MontoGeneradoLabel.setForeground(new java.awt.Color(0, 0, 0));
-        MontoGeneradoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        MontoGeneradoLabel.setText("Lps. 0.00");
-        jPanel1.add(MontoGeneradoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 492, 220, 30));
+        MontoTotalLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
+        MontoTotalLabel.setForeground(new java.awt.Color(0, 0, 0));
+        MontoTotalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MontoTotalLabel.setText("Lps. 0.00");
+        jPanel1.add(MontoTotalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 492, 220, 30));
 
         ReligiosoLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
         ReligiosoLabel.setForeground(new java.awt.Color(0, 0, 0));
@@ -99,7 +93,7 @@ public class EventosRealizados extends javax.swing.JFrame {
         });
         jPanel1.add(BotonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 50, 60));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/EventosRealizados.png"))); // NOI18N
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/EventosFuturos.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,7 +112,7 @@ public class EventosRealizados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        Reportes reportes = new Reportes(listaUsuarios, nombreLabel, usuarioLogueado);
+        Reportes reportes = new Reportes(usuarioLogueado);
         reportes.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
@@ -140,20 +134,20 @@ public class EventosRealizados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EventosRealizados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventosFuturos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EventosRealizados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventosFuturos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EventosRealizados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventosFuturos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EventosRealizados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EventosFuturos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EventosRealizados(null, null, null).setVisible(true);
+                new EventosFuturos(null).setVisible(true);
             }
         });
     }
@@ -163,7 +157,7 @@ public class EventosRealizados extends javax.swing.JFrame {
     private javax.swing.JLabel DeportivoLabel;
     private javax.swing.JTextArea EventosArea;
     private javax.swing.JLabel Fondo;
-    private javax.swing.JLabel MontoGeneradoLabel;
+    private javax.swing.JLabel MontoTotalLabel;
     private javax.swing.JLabel MusicalLabel;
     private javax.swing.JLabel ReligiosoLabel;
     private javax.swing.JPanel jPanel1;

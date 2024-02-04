@@ -14,15 +14,9 @@ import javax.swing.JOptionPane;
  * @author jenniferbueso
  */
 public class LogIn extends javax.swing.JFrame {
-    private GestionarUsuarios gestionarUsuarios;
-    ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel;
     private UsuariosInfo usuarioLogueado;
     
-    public LogIn(ArrayList<UsuariosInfo> listaUsuariosExterna, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        gestionarUsuarios = new GestionarUsuarios(listaUsuarios);
-        
+    public LogIn(UsuariosInfo usuarioLogueado) {
         initComponents();
     }
 
@@ -87,14 +81,13 @@ public class LogIn extends javax.swing.JFrame {
         int indiceUsuario = -1;
         String nombreUsuario = UsuarioField.getText();
         String contra = ContraField.getText();
-        nombreLabel = nombreUsuario;
         
-        UsuariosInfo resultado = gestionarUsuarios.logIn(nombreUsuario, contra);
+        UsuariosInfo resultado = Main_JavaTicket.gestionarUsuarios.logIn(nombreUsuario, contra);
         usuarioLogueado = resultado;
 
         if (resultado != null) {
            JOptionPane.showMessageDialog(null, "¡Bienvenido(a) a Java Ticket, " + nombreUsuario + "!", "Inicio de Sesión Exitoso", JOptionPane.INFORMATION_MESSAGE);
-           MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);
+           MenuPrincipal menuPrincipal = new MenuPrincipal(usuarioLogueado);
            menuPrincipal.setVisible(true);
            this.setVisible(false); 
         }
@@ -130,7 +123,7 @@ public class LogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogIn(null, null).setVisible(true);
+                new LogIn(null).setVisible(true);
             }
         });
     }

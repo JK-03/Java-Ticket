@@ -2,23 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package Reportes_Interfaz;
 
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
+import javaticket.MenuPrincipal;
 
 /**
  *
  * @author jenniferbueso
  */
 public class Reportes extends javax.swing.JFrame {
-    ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel;
     private UsuariosInfo usuarioLogueado;
    
-    public Reportes(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        this.nombreLabel = nombreLabel;
+    public Reportes(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
@@ -47,12 +44,27 @@ public class Reportes extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BotonEventosFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEventosFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonEventosFechaMouseClicked(evt);
+            }
+        });
         jPanel1.add(BotonEventosFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 170, 160));
 
         BotonEventosCancelados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEventosCancelados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonEventosCanceladosMouseClicked(evt);
+            }
+        });
         jPanel1.add(BotonEventosCancelados, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 170, 160));
 
         BotonEventosFuturos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonEventosFuturos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonEventosFuturosMouseClicked(evt);
+            }
+        });
         jPanel1.add(BotonEventosFuturos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 170, 160));
 
         BotonRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -72,6 +84,11 @@ public class Reportes extends javax.swing.JFrame {
         jPanel1.add(BotonEventosRealizados1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 170, 160));
 
         BotonVerPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonVerPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonVerPerfilMouseClicked(evt);
+            }
+        });
         jPanel1.add(BotonVerPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 450, 210, 50));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/Reportes.png"))); // NOI18N
@@ -93,16 +110,40 @@ public class Reportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);
+        MenuPrincipal menuPrincipal = new MenuPrincipal(usuarioLogueado);
         menuPrincipal.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonEventosRealizados1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosRealizados1MouseClicked
-        EventosRealizados eventosRealizados = new EventosRealizados(listaUsuarios, nombreLabel, usuarioLogueado);
+        EventosRealizados eventosRealizados = new EventosRealizados(usuarioLogueado);
         eventosRealizados.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonEventosRealizados1MouseClicked
+
+    private void BotonVerPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonVerPerfilMouseClicked
+        PerfilUsuario perfilUsuario = new PerfilUsuario(usuarioLogueado);
+        perfilUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonVerPerfilMouseClicked
+
+    private void BotonEventosCanceladosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosCanceladosMouseClicked
+        EventosCancelados eventosCancelados = new EventosCancelados(usuarioLogueado);
+        eventosCancelados.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonEventosCanceladosMouseClicked
+
+    private void BotonEventosFuturosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosFuturosMouseClicked
+        EventosFuturos eventosFuturos = new EventosFuturos(usuarioLogueado);
+        eventosFuturos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonEventosFuturosMouseClicked
+
+    private void BotonEventosFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEventosFechaMouseClicked
+        EventosPorFecha eventosPorFecha = new EventosPorFecha(usuarioLogueado);
+        eventosPorFecha.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonEventosFechaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -134,7 +175,7 @@ public class Reportes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Reportes(null, null, null).setVisible(true);
+                new Reportes(null).setVisible(true);
             }
         });
     }

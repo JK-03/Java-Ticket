@@ -15,7 +15,7 @@ public abstract class EventosInfo {
     protected String titulo;
     protected String descripcion;
     protected Date fecha;
-    protected double montoRenta;
+    protected double montoRenta, multa;
     protected boolean cancelado = false, realizado = false, indemnizacion = false;
 
     public EventosInfo(String codigo, String titulo, String descripcion, Date fecha, double montoRenta) {
@@ -95,5 +95,13 @@ public abstract class EventosInfo {
 
     public void setIndemnizacion(boolean indemnizacion) {
         this.indemnizacion = indemnizacion;
+    }
+
+    public double getMulta() {
+        return multa;
+    }
+
+    public void setMulta(double multa) {
+        this.multa = multa;
     }
 }

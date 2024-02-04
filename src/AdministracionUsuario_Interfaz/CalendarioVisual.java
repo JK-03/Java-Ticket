@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package AdministracionUsuario_Interfaz;
 
 import GestorEventos.EventosInfo;
 import java.awt.GridLayout;
@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import AdministracionEventos_Interfaz.CrearEvento;
+import AdministracionEventos_Interfaz.EditarEvento;
+import Reportes_Interfaz.EventosPorFecha;
+import javaticket.Main_JavaTicket;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -33,6 +37,7 @@ public class CalendarioVisual extends javax.swing.JFrame {
     private static CalendarioVisual instance;
     private static List<CrearEvento> observers = new ArrayList<>();
     private static List<EditarEvento> observersE = new ArrayList<>();
+    private static List<EventosPorFecha> observersPorFecha = new ArrayList<>();
     
     public CalendarioVisual() {
         initComponents();
@@ -55,7 +60,6 @@ public class CalendarioVisual extends javax.swing.JFrame {
         
         MesesBox.addActionListener(e -> updateCalendar(CalendarioPanel, MesesBox, AñosSpinner));
         AñosSpinner.addChangeListener(e -> updateCalendar(CalendarioPanel, MesesBox, AñosSpinner));
-        
     }
 
     /**
@@ -131,6 +135,14 @@ public class CalendarioVisual extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void addObserverFecha(EventosPorFecha observer) {
+        observersPorFecha.add(observer);
+    }
+
+    public static void removeObserverFecha(EventosPorFecha observer) {
+        observersPorFecha.remove(observer);
+    }
+    
     public static void addObserver(CrearEvento observer) {
         observers.add(observer);
     }
@@ -155,6 +167,12 @@ public class CalendarioVisual extends javax.swing.JFrame {
     
     public static void notifyObserversE() {
         for (EditarEvento observer : observersE) {
+            observer.updateFechaReservada(fechaSeleccionada);
+        }
+    }
+    
+    public static void notifyObserversPorFecha() {
+        for (EventosPorFecha observer : observersPorFecha) {
             observer.updateFechaReservada(fechaSeleccionada);
         }
     }
@@ -202,14 +220,17 @@ public class CalendarioVisual extends javax.swing.JFrame {
                        fechaSeleccionada = String.valueOf(dateStringToShow);
                        notifyObservers();
                        notifyObserversE();
+                       notifyObserversPorFecha();
                        instance.dispose();
                     }
 
                 }
             });
             calendar.set(Calendar.DAY_OF_MONTH, indice);
-            if (calendar.before(today) && calendar.get(Calendar.DAY_OF_MONTH) != currentDay) {
+            if (calendar.before(today) && calendar.get(Calendar.DAY_OF_MONTH) != currentDay && !Main_JavaTicket.gestionarEventos.isEventoFecha()) {
                 dayButton.setEnabled(false);
+            } else if (Main_JavaTicket.gestionarEventos.isEventoFecha()) {
+                dayButton.setEnabled(true);
             }
             calendarPanel.add(dayButton);
         }

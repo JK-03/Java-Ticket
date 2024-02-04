@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import javaticket.Main_JavaTicket;
 import javax.swing.JOptionPane;
 /**
  *
@@ -23,11 +25,24 @@ import javax.swing.JOptionPane;
 public class GestionarEventos {
     private ArrayList<EventosInfo> listaEventos;
     private static int contador = 0;
+    private boolean EventoFecha = false;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
     private EventoMusical eventoM;
 
     public GestionarEventos() {
         listaEventos = new ArrayList();
+    }
+
+    public ArrayList<EventosInfo> getListaEventos() {
+        return listaEventos;
+    }
+    
+    public boolean isEventoFecha() {
+        return EventoFecha;
+    }
+
+    public void setEventoFecha(boolean EventoFecha) {
+        this.EventoFecha = EventoFecha;
     }
     
    public String generarCodigoUnico() {
@@ -101,13 +116,16 @@ public class GestionarEventos {
             if (diferenciaEnDias <= 1) {
                 if (evento instanceof EventoReligioso) {
                     JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado sin penalización.", "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                    evento.setMulta(0.00);
                 } else {
                     double indemnizacion = evento.getMontoRenta() * 0.5;
-                    JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado. Se cobrará una indemnización del 50%: " + indemnizacion, "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado. Se cobrará una indemnización del 50%: Lps. " + indemnizacion, "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
                     evento.setIndemnizacion(true);
+                    evento.setMulta(indemnizacion);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado sin penalización.", "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                evento.setMulta(0.00);
             }
             
             evento.setCancelado(true);
@@ -124,113 +142,5 @@ public class GestionarEventos {
            return null;
        }
    }
-   
-   //Reportes
-   public String buscarEventosRealizados() {
-        Collections.sort(listaEventos, new Comparator<EventosInfo>() {
-                @Override
-                public int compare(EventosInfo e1, EventosInfo e2) {
-                    return e1.getFecha().compareTo(e2.getFecha());
-                }
-            });
-
-        return buscarEventosRealizados(new StringBuilder(), 0).toString();
-    }
-
-    private StringBuilder buscarEventosRealizados(StringBuilder eventosRealizados, int index) {
-        if (index < listaEventos.size()) {
-            EventosInfo evento = listaEventos.get(index);
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", new Locale("es", "ES"));
-            String fecha = formato.format(evento.getFecha());
-            if (evento.yaRealizado()) {
-                if (evento instanceof EventoDeportivo) {
-                    eventosRealizados.append(evento.getCodigo() + " - ")
-                            .append("Deportivo - ")
-                            .append(evento.getTitulo() + " - ")
-                            .append(fecha + " - ")
-                            .append(evento.getMontoRenta() + "\n");
-                } else if (evento instanceof EventoMusical) {
-                    eventosRealizados.append(evento.getCodigo() + " - ")
-                            .append("Musical - ")
-                            .append(evento.getTitulo() + " - ")
-                            .append(fecha + " - ")
-                            .append(evento.getMontoRenta() + "\n");
-                } else if (evento instanceof EventoReligioso) {
-                    eventosRealizados.append(evento.getCodigo() + " - ")
-                            .append("Religioso - ")
-                            .append(evento.getTitulo() + " - ")
-                            .append(fecha + " - ")
-                            .append(evento.getMontoRenta() + "\n");
-                }
-            }
-            return buscarEventosRealizados(eventosRealizados, index + 1);
-        }
-        return eventosRealizados;
-    }
-    
-    //Reportes - Eventos Realizados
-    public int contadorDeportivoRealizado() {
-        return contadorDeportivoRealizado(0,0);
-    }
-    
-    private int contadorDeportivoRealizado(int contadorD, int index) {
-        if (index < listaEventos.size()) {
-            EventosInfo evento = listaEventos.get(index);
-            
-            if (evento instanceof EventoDeportivo && evento.yaRealizado()) {
-                contadorD++;
-            }
-            return contadorDeportivoRealizado(contadorD, index + 1);
-        }
-        return contadorD;
-    }        
-    
-    public int contadorMusicalRealizado() {
-        return contadorMusicalRealizado(0,0);
-    }
-    
-    private int contadorMusicalRealizado(int contadorM, int index) {
-        if (index < listaEventos.size()) {
-            EventosInfo evento = listaEventos.get(index);
-            
-            if (evento instanceof EventoMusical && evento.yaRealizado()) {
-                contadorM++;
-            }
-            return contadorMusicalRealizado(contadorM, index + 1);
-        }
-        return contadorM;
-    }   
-    
-    public int contadorReligiosoRealizado() {
-        return contadorReligiosoRealizado(0,0);
-    }
-    
-    private int contadorReligiosoRealizado(int contadorR, int index) {
-        if (index < listaEventos.size()) {
-            EventosInfo evento = listaEventos.get(index);
-            
-            if (evento instanceof EventoReligioso && evento.yaRealizado()) {
-                contadorR++;
-            }
-            return contadorReligiosoRealizado(contadorR, index + 1);
-        }
-        return contadorR;
-    }   
-    
-    public double montoGeneradoRealizado() {
-        return montoGeneradoRealizado(0, 0);
-    }
-    
-    private double montoGeneradoRealizado(double montoGenerado, int index) {
-        if (index < listaEventos.size()) {
-            EventosInfo evento = listaEventos.get(index);
-            
-            if (evento.yaRealizado()) {
-                montoGenerado += evento.montoRenta;
-            }
-            return montoGeneradoRealizado(montoGenerado, index + 1);
-        }
-        return montoGenerado;
-    }
     
  }

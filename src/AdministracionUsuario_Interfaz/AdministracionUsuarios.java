@@ -2,28 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package AdministracionUsuario_Interfaz;
 
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import javaticket.MenuPrincipal;
 
 /**
  *
  * @author jenniferbueso
  */
-public class AdministracionEventos extends javax.swing.JFrame {
-    private ArrayList<UsuariosInfo> listaUsuarios;
-    private String nombreLabel;
+public class AdministracionUsuarios extends javax.swing.JFrame {
     private UsuariosInfo usuarioLogueado;
     
-    public AdministracionEventos(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
-        listaUsuarios = listaUsuariosExterna;
-        this.nombreLabel = nombreLabel;
+    public AdministracionUsuarios(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
         
         initComponents();
-        
     }
 
     /**
@@ -36,32 +31,23 @@ public class AdministracionEventos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        BotonVer = new javax.swing.JLabel();
-        BotonRegresar = new javax.swing.JLabel();
+        BotonBorrar = new javax.swing.JLabel();
         BotonEditar = new javax.swing.JLabel();
         BotonCrear = new javax.swing.JLabel();
-        BotonEliminar = new javax.swing.JLabel();
+        BotonRegresar = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        BotonVer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonVer.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotonBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonBorrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonVerMouseClicked(evt);
+                BotonBorrarMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 250, 170, 150));
-
-        BotonRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonRegresarMouseClicked(evt);
-            }
-        });
-        jPanel1.add(BotonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 130, 60, 60));
+        jPanel1.add(BotonBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 250, 210));
 
         BotonEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonEditar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -69,7 +55,7 @@ public class AdministracionEventos extends javax.swing.JFrame {
                 BotonEditarMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, 170, 150));
+        jPanel1.add(BotonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 260, 210));
 
         BotonCrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BotonCrear.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,17 +63,17 @@ public class AdministracionEventos extends javax.swing.JFrame {
                 BotonCrearMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 170, 150));
+        jPanel1.add(BotonCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 260, 210));
 
-        BotonEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BotonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+        BotonRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BotonEliminarMouseClicked(evt);
+                BotonRegresarMouseClicked(evt);
             }
         });
-        jPanel1.add(BotonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 170, 150));
+        jPanel1.add(BotonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 150, 60, 50));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/administrarEventos.png"))); // NOI18N
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/administracionUsuarios.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,47 +91,29 @@ public class AdministracionEventos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEditarMouseClicked
-        String clase = usuarioLogueado.getClass().getName();
-        
-        if (clase.equals("GestorUsuarios.Limitado")) {
-            JOptionPane.showMessageDialog(null, "Lo siento, esta opción no está disponible para usuarios LIMITADOS.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
-        } else {
-            EditarEvento editarEvento = new EditarEvento(listaUsuarios, nombreLabel, usuarioLogueado);
-            editarEvento.setVisible(true);
-            this.setVisible(false);
-        }
-    }//GEN-LAST:event_BotonEditarMouseClicked
-
-    private void BotonVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonVerMouseClicked
-        VerEvento verEvento = new VerEvento(listaUsuarios, nombreLabel, usuarioLogueado);
-        verEvento.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_BotonVerMouseClicked
-
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        MenuPrincipal menuPrincipal = new MenuPrincipal(listaUsuarios, nombreLabel, usuarioLogueado);
+        MenuPrincipal menuPrincipal = new MenuPrincipal(usuarioLogueado);
         menuPrincipal.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
-    private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
-        EliminarEvento eliminarEvento = new EliminarEvento(listaUsuarios, nombreLabel, usuarioLogueado);
-        eliminarEvento.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_BotonEliminarMouseClicked
-
     private void BotonCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCrearMouseClicked
-        String clase = usuarioLogueado.getClass().getName();
-        
-        if (clase.equals("GestorUsuarios.Limitado")) {
-            JOptionPane.showMessageDialog(null, "Lo siento, esta opción no está disponible para usuarios LIMITADOS.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
-        } else {
-            CrearEvento crearEvento = new CrearEvento(listaUsuarios, nombreLabel, usuarioLogueado);
-            crearEvento.setVisible(true);
-            this.setVisible(false);
-        }
+        CrearUsuario crearUsuario = new CrearUsuario(usuarioLogueado);
+        crearUsuario.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotonCrearMouseClicked
+
+    private void BotonEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEditarMouseClicked
+        ModificarUsuario modificarUsuario = new ModificarUsuario(usuarioLogueado);
+        modificarUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonEditarMouseClicked
+
+    private void BotonBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonBorrarMouseClicked
+        BorrarUsuario borrarUsuario = new BorrarUsuario(usuarioLogueado);
+        borrarUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonBorrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -164,30 +132,29 @@ public class AdministracionEventos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdministracionEventos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracionUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdministracionEventos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracionUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdministracionEventos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracionUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdministracionEventos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministracionUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministracionEventos(null, null, null).setVisible(true);
+                new AdministracionUsuarios(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BotonBorrar;
     private javax.swing.JLabel BotonCrear;
     private javax.swing.JLabel BotonEditar;
-    private javax.swing.JLabel BotonEliminar;
     private javax.swing.JLabel BotonRegresar;
-    private javax.swing.JLabel BotonVer;
     private javax.swing.JLabel Fondo;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package javaticket;
+package AdministracionEventos_Interfaz;
 
 import GestorUsuarios.UsuariosInfo;
 import java.util.ArrayList;
+import javaticket.Main_JavaTicket;
 
 /**
  *
@@ -13,13 +14,9 @@ import java.util.ArrayList;
  */
 public class EliminarEvento extends javax.swing.JFrame {
     private UsuariosInfo usuarioLogueado;
-    private String nombreLabel;
-    private ArrayList<UsuariosInfo> listaUsuarios;
     
-    public EliminarEvento(ArrayList<UsuariosInfo> listaUsuariosExterna, String nombreLabel, UsuariosInfo usuarioLogueado) {
+    public EliminarEvento(UsuariosInfo usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
-        listaUsuarios = listaUsuariosExterna;
-        this.nombreLabel = nombreLabel;
         initComponents();
         
     }
@@ -89,7 +86,7 @@ public class EliminarEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonEliminarMouseClicked
 
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
-        AdministracionEventos administracionEventos = new AdministracionEventos(listaUsuarios, nombreLabel, usuarioLogueado);
+        AdministracionEventos administracionEventos = new AdministracionEventos(usuarioLogueado);
         administracionEventos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
@@ -124,7 +121,7 @@ public class EliminarEvento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EliminarEvento(null, null, null).setVisible(true);
+                new EliminarEvento(null).setVisible(true);
             }
         });
     }
