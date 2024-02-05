@@ -93,28 +93,22 @@ public class GestionarUsuarios {
         }
     }
     
-    public boolean modificarUsuario(String nombreCompleto, String usuario, String contra, int edad) {
-        return modificarUsuario(nombreCompleto, usuario, contra, edad, 0);
-    }
-    
-    private boolean modificarUsuario(String nombreCompleto, String usuario, String contra, int edad, int index) {
+    public boolean modificarUsuario(String nombreCompleto, String usuario, String contra, int edad, int index) {
         if (index < listaUsuarios.size()) {
             UsuariosInfo usuarioActual = listaUsuarios.get(index);
-            if (usuarioActual.getUsuario().equals(usuario)) {
-                usuarioActual.setNombreCompleto(nombreCompleto);
-                usuarioActual.setUsuario(usuario);
-                usuarioActual.setContra(contra);
-                usuarioActual.setEdad(edad);
-                return true;
-            } else {
-                return modificarUsuario(nombreCompleto, usuario, contra, edad, index + 1);
-            }
+            usuarioActual.setNombreCompleto(nombreCompleto);
+            usuarioActual.setUsuario(usuario);
+            usuarioActual.setContra(contra);
+            usuarioActual.setEdad(edad);
+            return true;
         }
         return false;
     }
     
     public void eliminarUsuario(UsuariosInfo usuarioEliminar) {
+        if (listaUsuarios.contains(usuarioEliminar)) {
             listaUsuarios.remove(usuarioEliminar);
+        }
     }
     
     

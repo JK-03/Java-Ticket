@@ -151,12 +151,14 @@ public class BorrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonRegresarMouseClicked
 
     private void BotonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEliminarMouseClicked
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta cuenta?", "Eliminar Cuenta", JOptionPane.YES_NO_OPTION);
+       if (usuarioSeleccionado.getUsuario().equals("admin")) {
+           JOptionPane.showMessageDialog(null, "Usuario admin no puede ser eliminado.", "Denegado", JOptionPane.WARNING_MESSAGE);
+           return;
+       }
         
-        if (usuarioSeleccionado.getUsuario().equals("admin")) {
-            JOptionPane.showMessageDialog(null, "Usuario admin no puede ser eliminado.", "Denegado", JOptionPane.WARNING_MESSAGE);
-            return;
-        } else if (opcion == JOptionPane.YES_OPTION) {
+       int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar esta cuenta?", "Eliminar Cuenta", JOptionPane.YES_NO_OPTION);
+        
+       if (opcion == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "¡Usuario eliminado exitosamente!", "Usuario Eliminado", JOptionPane.INFORMATION_MESSAGE);
             tiposUsuariosBox.removeItem(usuarioSeleccionado);
             Main_JavaTicket.gestionarUsuarios.eliminarUsuario(usuarioSeleccionado);

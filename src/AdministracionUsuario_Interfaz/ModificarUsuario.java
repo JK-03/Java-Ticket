@@ -128,13 +128,13 @@ public class ModificarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonModificarMouseClicked
-        String tipoUsuario = tiposUsuariosBox.getSelectedItem().toString().toUpperCase();
+        int indexUsuario = tiposUsuariosBox.getSelectedIndex();
         String nombreCompleto = NombreCompletoField.getText();
         String usuario = UsuarioField.getText();
         String contra = ContraField.getText();
         int edad = Integer.parseInt(EdadField.getText());
         
-        boolean mensaje = Main_JavaTicket.gestionarUsuarios.modificarUsuario(nombreCompleto, usuario, contra, edad);
+        boolean mensaje = Main_JavaTicket.gestionarUsuarios.modificarUsuario(nombreCompleto, usuario, contra, edad, indexUsuario);
         
         if (mensaje) {
             JOptionPane.showMessageDialog(null, "¡Usuario modificado exitosamente!", "Usuario Modificado", JOptionPane.INFORMATION_MESSAGE);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package AdministracionUsuario_Interfaz;
+package AdministracionEventos_Interfaz;
 
 import GestorEventos.EventosInfo;
 import java.awt.GridLayout;
@@ -189,10 +189,10 @@ public class CalendarioVisual extends javax.swing.JFrame {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, monthComboBox.getSelectedIndex());
         calendar.set(Calendar.YEAR, (Integer) yearSpinner.getValue());
+        calendar.set(Calendar.DAY_OF_MONTH, 1); // Establecer el día del mes a 1
 
         Calendar today = Calendar.getInstance();
         int currentDay = today.get(Calendar.DAY_OF_MONTH);
-        calendar.set(Calendar.DAY_OF_MONTH, currentDay);
 
         int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         for (int i = 1; i < firstDayOfWeek; i++) {
@@ -210,8 +210,14 @@ public class CalendarioVisual extends javax.swing.JFrame {
                     // Formato para mostrar en JOptionPane
                     SimpleDateFormat formatToShow = new SimpleDateFormat("dd/MM/yyyy");
                     String dateStringToShow = formatToShow.format(date);
-
-                    Object[] opciones = {"Reservar", "Cancelar"};
+                    Object[] opciones;
+                    
+                    if (Main_JavaTicket.gestionarEventos.isEventoFecha()) {
+                        opciones = new String[]{"Seleccionar", "Cancelar"};
+                    } else {
+                        opciones = new String[]{"Reservar", "Cancelar"};
+                    }
+                    
                     JFrame jf = new JFrame();
                     jf.setAlwaysOnTop(true);
                     int escogida = JOptionPane.showOptionDialog(jf, "¿Desea seleccionar la fecha " + dateStringToShow + " ?", "Reservar Fecha", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
@@ -237,6 +243,7 @@ public class CalendarioVisual extends javax.swing.JFrame {
         calendarPanel.revalidate();
         calendarPanel.repaint();
     }
+
 
     /**
      * @param args the command line arguments

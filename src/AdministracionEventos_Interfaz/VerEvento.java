@@ -5,7 +5,6 @@
 package AdministracionEventos_Interfaz;
 
 import AdministracionEventos_Interfaz.AdministracionEventos;
-import AdministracionUsuario_Interfaz.CalendarioVisual;
 import GestorEventos.DeportesTipo;
 import GestorEventos.EventoDeportivo;
 import GestorEventos.EventoMusical;
@@ -666,9 +665,11 @@ public class VerEvento extends javax.swing.JFrame {
             if (eventoBuscado.isCancelado()) {
                 CanceladoLabel.setText("Cancelado");
                 
-                if (eventoBuscado.isIndemnizacion()) 
+                if (eventoBuscado.isIndemnizacion()) {
                     PagadoLabel.setText("Indemnización");
-                PagadoLabel.setText("Sin Indemnización");
+                } else if (!eventoBuscado.isIndemnizacion()) {
+                    PagadoLabel.setText("Sin Indemnización");
+                }
             } else {
                 CanceladoLabel.setText("Activo");
                 mostrarNoPagado = true;

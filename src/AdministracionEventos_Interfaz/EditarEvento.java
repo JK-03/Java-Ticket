@@ -4,7 +4,6 @@
  */
 package AdministracionEventos_Interfaz;
 
-import AdministracionUsuario_Interfaz.CalendarioVisual;
 import GestorEventos.DeportesTipo;
 import GestorEventos.EventoDeportivo;
 import GestorEventos.EventoMusical;

@@ -4,7 +4,7 @@
  */
 package Reportes_Interfaz;
 
-import AdministracionUsuario_Interfaz.CalendarioVisual;
+import AdministracionEventos_Interfaz.CalendarioVisual;
 import GestorUsuarios.UsuariosInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

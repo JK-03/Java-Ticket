@@ -41,7 +41,12 @@ public class PerfilUsuario extends javax.swing.JFrame {
         UsuarioField.setText(usuarioLogueado.getUsuario());
         EdadField.setText(Integer.toString(usuarioLogueado.getEdad()));
         ContraField.setText(usuarioLogueado.getContra());
-        EventosArea.setText(EventosRealizadosUsuarioLogueado());
+        
+        if (usuarioLogueado instanceof Administrador || usuarioLogueado instanceof Contenidos){
+            EventosArea.setText(EventosRealizadosUsuarioLogueado());
+        } else if (usuarioLogueado instanceof Limitado){
+            EventosArea.setText("Este usuario no puede crear eventos.");
+        }
     }
 
     public String EventosRealizadosUsuarioLogueado() {
