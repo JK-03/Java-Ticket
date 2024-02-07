@@ -127,7 +127,6 @@ public class GestionarEventos {
                 JOptionPane.showMessageDialog(null, "El evento '" + evento.getTitulo() + "' ha sido cancelado sin penalización.", "Evento Cancelado", JOptionPane.INFORMATION_MESSAGE);
                 evento.setMulta(0.00);
             }
-            
             evento.setCancelado(true);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró un evento con el código proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);

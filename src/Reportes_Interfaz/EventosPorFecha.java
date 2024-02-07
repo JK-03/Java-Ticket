@@ -6,6 +6,7 @@ package Reportes_Interfaz;
 
 import AdministracionEventos_Interfaz.CalendarioVisual;
 import GestorUsuarios.UsuariosInfo;
+import GraficosReportes.GraficoEventos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +33,6 @@ public class EventosPorFecha extends javax.swing.JFrame {
         CalendarioVisual.addObserverFecha(this);
         
         initComponents();
-  
     }
 
     /**
@@ -59,6 +59,7 @@ public class EventosPorFecha extends javax.swing.JFrame {
         FechaFinalField = new javax.swing.JTextField();
         FechaInicialField = new javax.swing.JTextField();
         BotonBuscar = new javax.swing.JLabel();
+        BotonGrafico = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -191,6 +192,14 @@ public class EventosPorFecha extends javax.swing.JFrame {
         });
         jPanel1.add(BotonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 274, 130, 30));
 
+        BotonGrafico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonGrafico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonGraficoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(BotonGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 60, 60));
+
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/EventosPorFecha.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -227,6 +236,7 @@ public class EventosPorFecha extends javax.swing.JFrame {
     }
     
     private void BotonRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegresarMouseClicked
+        Main_JavaTicket.gestionarGraficos.setFechasInicializador(false);
         Reportes reportes = new Reportes(usuarioLogueado);
         reportes.setVisible(true);
         this.setVisible(false);
@@ -287,12 +297,22 @@ public class EventosPorFecha extends javax.swing.JFrame {
                 MontoGeneradoLabel.setText("Lps. " + Double.toString( Main_JavaTicket.contadoresReportes.montoGeneradoFecha(fechaInicialD, fechaFinalD)));
                 MultaGeneradaLabel.setText("Lps. " + Double.toString( Main_JavaTicket.contadoresReportes.multaGeneradoFecha(fechaInicialD, fechaFinalD)));
                 TotalLabel.setText("Lps. " + Double.toString( Main_JavaTicket.contadoresReportes.totalFecha(fechaInicialD, fechaFinalD)));
+                Main_JavaTicket.gestionarGraficos.setFechaInicial(fechaInicialD);
+                Main_JavaTicket.gestionarGraficos.setFechaFinal(fechaFinalD);
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron eventos en el rango de fechas seleccionado. Por favor, intenta con un rango de fechas diferente.", "Sin Eventos", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_BotonBuscarMouseClicked
 
+    private void BotonGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonGraficoMouseClicked
+        Main_JavaTicket.gestionarGraficos.setEventosPorFecha(true);
+        GraficoEventos graficoEventosRealizados = new GraficoEventos(usuarioLogueado);
+        graficoEventosRealizados.setVisible(true);
+        this.setVisible(false);
+        Main_JavaTicket.eventosPorFecha = this;
+    }//GEN-LAST:event_BotonGraficoMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -332,6 +352,7 @@ public class EventosPorFecha extends javax.swing.JFrame {
     private javax.swing.JLabel BotonBuscar;
     private javax.swing.JLabel BotonCalendario;
     private javax.swing.JLabel BotonCalendario1;
+    private javax.swing.JLabel BotonGrafico;
     private javax.swing.JLabel BotonRegresar;
     private javax.swing.JLabel DeportivoLabel;
     private javax.swing.JTextArea EventosArea;

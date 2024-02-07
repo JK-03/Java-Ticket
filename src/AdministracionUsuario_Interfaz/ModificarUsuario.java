@@ -134,14 +134,40 @@ public class ModificarUsuario extends javax.swing.JFrame {
         String contra = ContraField.getText();
         int edad = Integer.parseInt(EdadField.getText());
         
+        if (nombreCompleto.isBlank() || nombreCompleto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Nombre.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (usuario.isBlank() || usuario.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Usuario.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (contra.isBlank() || contra.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Contraseña.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (edad == 0) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Edad.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       
+        while (edad<=0 || edad>100) {
+            JOptionPane.showMessageDialog(null, "Rango de edad válido: 1-100");
+            return;
+        }
+        
+        try {
+            edad = Integer.parseInt(EdadField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La edad debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         boolean mensaje = Main_JavaTicket.gestionarUsuarios.modificarUsuario(nombreCompleto, usuario, contra, edad, indexUsuario);
         
         if (mensaje) {
             JOptionPane.showMessageDialog(null, "¡Usuario modificado exitosamente!", "Usuario Modificado", JOptionPane.INFORMATION_MESSAGE);
-            NombreCompletoField.setText("");
-            UsuarioField.setText("");
-            ContraField.setText("");
-            EdadField.setText("");
+           
+            AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(usuarioLogueado);
+            administracionUsuarios.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_BotonModificarMouseClicked
 

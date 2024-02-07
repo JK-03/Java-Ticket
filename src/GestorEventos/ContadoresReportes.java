@@ -138,7 +138,7 @@ public class ContadoresReportes {
                 } else if (evento instanceof EventoReligioso) {
                     tipo = "Religioso";
                 }
-                    eventosCancelados.append(evento.getCodigo() + " - ").append(tipo + " - ").append(evento.getTitulo() + " - ").append(fecha + " - ").append("Lps. " + evento.getMontoRenta() + "\n");
+                    eventosCancelados.append(evento.getCodigo() + " - ").append(tipo + " - ").append(evento.getTitulo() + " - ").append(fecha + " - ").append("Lps. " + evento.getMulta() + "\n");
             }
             return buscarEventosCancelados(eventosCancelados, index + 1);
         }

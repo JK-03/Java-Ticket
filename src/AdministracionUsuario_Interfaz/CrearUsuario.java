@@ -123,11 +123,29 @@ public class CrearUsuario extends javax.swing.JFrame {
         String nombreCompleto = NombreCompletoField.getText();
         String usuario = UsuarioField.getText();
         String contra = ContraField.getText();
-        int edad = 1;
+        int edad = Integer.parseInt(EdadField.getText());
+        
+        if (tipoUsuario.equals(" ")) {
+            JOptionPane.showMessageDialog(null, "Elije un Tipo de Usuario.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (nombreCompleto.isBlank() || nombreCompleto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Nombre.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (usuario.isBlank() || usuario.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Usuario.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (contra.isBlank() || contra.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Contraseña.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (edad == 0) {
+            JOptionPane.showMessageDialog(null, "Completa el campo de Edad.", "Campo Incompleto", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       
         
         while (edad<=0 || edad>100) {
             JOptionPane.showMessageDialog(null, "Rango de edad válido: 1-100");
-            edad = 0;
+            return;
         }
         
         try {
@@ -139,15 +157,13 @@ public class CrearUsuario extends javax.swing.JFrame {
         
         boolean mostrarMensaje = Main_JavaTicket.gestionarUsuarios.agregarUsuario(nombreCompleto, usuario, contra, edad, tipoUsuario);
         
-        if (tipoUsuario == null || nombreCompleto == null || usuario == null || contra == null || edad == 0) {
-            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos para crear un usuario.", "Campos Incompletos", JOptionPane.ERROR_MESSAGE);
-        } else if (mostrarMensaje){
+        if (mostrarMensaje){
             Main_JavaTicket.gestionarUsuarios.agregarUsuario(nombreCompleto, usuario, contra, edad, tipoUsuario);
             JOptionPane.showMessageDialog(null, "¡Usuario creado exitosamente!", "Usuario Creado", JOptionPane.INFORMATION_MESSAGE);
-            NombreCompletoField.setText("");
-            UsuarioField.setText("");
-            ContraField.setText("");
-            EdadField.setText("");
+            
+            AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(usuarioLogueado);
+            administracionUsuarios.setVisible(true);
+            this.setVisible(false);
         } else if (mostrarMensaje == false) {
             JOptionPane.showMessageDialog(null, "El usuario ya existe. Inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }

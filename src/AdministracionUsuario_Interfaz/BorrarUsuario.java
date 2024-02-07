@@ -127,6 +127,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
 
     private void tiposUsuariosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposUsuariosBoxActionPerformed
         usuarioSeleccionado = (UsuariosInfo) tiposUsuariosBox.getSelectedItem();
+        index = tiposUsuariosBox.getSelectedIndex();
         
         if (usuarioSeleccionado.getUsuario().equals("")) {
             TipoUsuarioLabel.setText("");
@@ -160,12 +161,12 @@ public class BorrarUsuario extends javax.swing.JFrame {
         
        if (opcion == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "¡Usuario eliminado exitosamente!", "Usuario Eliminado", JOptionPane.INFORMATION_MESSAGE);
-            tiposUsuariosBox.removeItem(usuarioSeleccionado);
             Main_JavaTicket.gestionarUsuarios.eliminarUsuario(usuarioSeleccionado);
-            NombreCompletoField.setText("");
-            UsuarioField.setText("");
-            ContraField.setText("");
-            EdadField.setText("");
+            tiposUsuariosBox.removeItem(usuarioSeleccionado);
+            
+            AdministracionUsuarios administracionUsuarios = new AdministracionUsuarios(usuarioLogueado);
+            administracionUsuarios.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_BotonEliminarMouseClicked
 

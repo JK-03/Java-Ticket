@@ -5,6 +5,7 @@
 package Reportes_Interfaz;
 
 import GestorUsuarios.UsuariosInfo;
+import GraficosReportes.GraficoEventos;
 import javaticket.Main_JavaTicket;
 
 /**
@@ -42,6 +43,7 @@ public class EventosFuturos extends javax.swing.JFrame {
         MusicalLabel = new javax.swing.JLabel();
         DeportivoLabel = new javax.swing.JLabel();
         BotonRegresar = new javax.swing.JLabel();
+        BotonGrafico = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,6 +95,14 @@ public class EventosFuturos extends javax.swing.JFrame {
         });
         jPanel1.add(BotonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 50, 60));
 
+        BotonGrafico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BotonGrafico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonGraficoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(BotonGrafico, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 60, 60));
+
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/EventosFuturos.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -116,6 +126,13 @@ public class EventosFuturos extends javax.swing.JFrame {
         reportes.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BotonRegresarMouseClicked
+
+    private void BotonGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonGraficoMouseClicked
+        Main_JavaTicket.gestionarGraficos.setEventosFuturos(true);
+        GraficoEventos graficoEventosRealizados = new GraficoEventos(usuarioLogueado);
+        graficoEventosRealizados.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BotonGraficoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -153,6 +170,7 @@ public class EventosFuturos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BotonGrafico;
     private javax.swing.JLabel BotonRegresar;
     private javax.swing.JLabel DeportivoLabel;
     private javax.swing.JTextArea EventosArea;

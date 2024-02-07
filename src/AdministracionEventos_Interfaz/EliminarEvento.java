@@ -43,6 +43,7 @@ public class EliminarEvento extends javax.swing.JFrame {
         CódigoField.setBackground(new java.awt.Color(253, 228, 240));
         CódigoField.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
         CódigoField.setForeground(new java.awt.Color(0, 0, 0));
+        CódigoField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         CódigoField.setBorder(null);
         jPanel1.add(CódigoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 317, 360, 50));
 
