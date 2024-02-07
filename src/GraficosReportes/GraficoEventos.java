@@ -20,6 +20,8 @@ import javaticket.Main_JavaTicket;
  */
 public class GraficoEventos extends javax.swing.JFrame {
     private UsuariosInfo usuarioLogueado;
+    private EventosPorFecha eventosPorFecha;
+    private static GraficoEventos instance;
     private String deportivoString = "0", musicalString = "0", religiosoString = "0";
     private boolean dibujarGrafico = false;
     
@@ -215,6 +217,12 @@ public class GraficoEventos extends javax.swing.JFrame {
         Main_JavaTicket.gestionarGraficos.setEventosRealizados(false);
     }
    
+    public static GraficoEventos getInstance(UsuariosInfo usuarioLogueado) {
+        if (instance == null) {
+            instance = new GraficoEventos(usuarioLogueado);
+        }
+        return instance;
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

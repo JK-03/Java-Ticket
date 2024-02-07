@@ -23,6 +23,7 @@ import javax.swing.SpinnerDateModel;
  */
 public class EventosPorFecha extends javax.swing.JFrame {
     private UsuariosInfo usuarioLogueado;
+    private static EventosPorFecha instance;
     private boolean fechaInicial = false;
     private String fechaReservada;
     private Date fechaInicialD, fechaFinalD;
@@ -312,6 +313,13 @@ public class EventosPorFecha extends javax.swing.JFrame {
         this.setVisible(false);
         Main_JavaTicket.eventosPorFecha = this;
     }//GEN-LAST:event_BotonGraficoMouseClicked
+    
+    public static EventosPorFecha getInstance(UsuariosInfo usuarioLogueado) {
+        if (instance == null) {
+            instance = new EventosPorFecha(usuarioLogueado);
+        }
+        return instance;
+    }
     
     /**
      * @param args the command line arguments
