@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import javaticket.Main_JavaTicket;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,12 +51,10 @@ public class GraficoEventos extends javax.swing.JFrame {
         }
         
         if (Double.parseDouble(deportivoString) == 0 && Double.parseDouble(musicalString) == 0 && Double.parseDouble(religiosoString) == 0) {
-            AvisoLabel.setText("<html>Actualmente no disponemos de los datos necesarios para generar el gráfico. Por favor, verifica que la información requerida esté disponible e inténtalo de nuevo.</html>");
+            AvisoLabel.setText("Actualmente no disponemos de los datos necesarios para generar el gráfico.");
         } else {
             dibujarGrafico = true;
-            AvisoLabel.setVisible(false);
         }
-
         
         repaint();
     }
@@ -87,11 +87,9 @@ public class GraficoEventos extends javax.swing.JFrame {
         });
         jPanel1.add(BotonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, 50, 40));
 
-        AvisoLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 18)); // NOI18N
-        AvisoLabel.setForeground(new java.awt.Color(0, 0, 0));
+        AvisoLabel.setFont(new java.awt.Font("Avenir Next Condensed", 1, 14)); // NOI18N
         AvisoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AvisoLabel.setText("Actualmente no disponemos de los datos necesarios para generar \nel gráfico. Por favor, verifica que la información requerida esté \ndisponible e inténtalo de nuevo.");
-        jPanel1.add(AvisoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 580, 180));
+        jPanel1.add(AvisoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 550, 120));
 
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Elementos/Grafico.png"))); // NOI18N
         jPanel1.add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 678, 550));
@@ -223,6 +221,7 @@ public class GraficoEventos extends javax.swing.JFrame {
         }
         return instance;
     }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -300,6 +300,8 @@ public class EventosPorFecha extends javax.swing.JFrame {
                 TotalLabel.setText("Lps. " + Double.toString( Main_JavaTicket.contadoresReportes.totalFecha(fechaInicialD, fechaFinalD)));
                 Main_JavaTicket.gestionarGraficos.setFechaInicial(fechaInicialD);
                 Main_JavaTicket.gestionarGraficos.setFechaFinal(fechaFinalD);
+                System.out.println(fechaInicialD);
+                System.out.println(fechaFinalD);
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron eventos en el rango de fechas seleccionado. Por favor, intenta con un rango de fechas diferente.", "Sin Eventos", JOptionPane.WARNING_MESSAGE);
             }
@@ -307,11 +309,15 @@ public class EventosPorFecha extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonBuscarMouseClicked
 
     private void BotonGraficoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonGraficoMouseClicked
-        Main_JavaTicket.gestionarGraficos.setEventosPorFecha(true);
-        GraficoEventos graficoEventosRealizados = new GraficoEventos(usuarioLogueado);
-        graficoEventosRealizados.setVisible(true);
-        this.setVisible(false);
-        Main_JavaTicket.eventosPorFecha = this;
+        if (fechaInicialD != null && fechaFinalD!= null) {
+            Main_JavaTicket.gestionarGraficos.setEventosPorFecha(true);
+            GraficoEventos graficoEventosRealizados = new GraficoEventos(usuarioLogueado);
+            graficoEventosRealizados.setVisible(true);
+            this.setVisible(false);
+            Main_JavaTicket.eventosPorFecha = this;
+        } else {
+            JOptionPane.showMessageDialog(null, "Antes de ver el gráfico, debe de llenar los campos de fecha inicial y final.", "Campos Incompletos", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_BotonGraficoMouseClicked
     
     public static EventosPorFecha getInstance(UsuariosInfo usuarioLogueado) {
