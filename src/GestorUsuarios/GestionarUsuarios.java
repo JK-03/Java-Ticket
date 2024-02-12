@@ -20,9 +20,6 @@ public class GestionarUsuarios {
         
         listaUsuarios.add(new Administrador("", "", "", 0));
         listaUsuarios.add(new Administrador("Administrador", "admin", "supersecreto", 20));
-        listaUsuarios.add(new Limitado("Limitado", "limitado", "12345", 20));
-        listaUsuarios.add(new Contenidos("Contenido", "contenido", "12345", 20));
-        
     }
 
     public ArrayList<UsuariosInfo> getListaUsuarios() {

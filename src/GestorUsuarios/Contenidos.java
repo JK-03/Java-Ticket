@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author jenniferbueso
  */
-public class Contenidos extends UsuariosInfo {
+public final class Contenidos extends UsuariosInfo {
     private ArrayList<String> idEventos;
     
     public Contenidos(String nombreCompleto, String usuario, String contra, int edad) {

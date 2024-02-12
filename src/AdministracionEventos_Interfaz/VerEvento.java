@@ -597,9 +597,6 @@ public class VerEvento extends javax.swing.JFrame {
     }
     
     private void BotonCalendarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonCalendarioMouseClicked
-        CalendarioVisual calendarioVisual = new CalendarioVisual();
-        calendarioVisual.setVisible(true);
-        this.setVisible(true);
     }//GEN-LAST:event_BotonCalendarioMouseClicked
 
     private void FechaFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FechaFieldKeyTyped
@@ -610,7 +607,6 @@ public class VerEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_FechaFieldActionPerformed
 
     private void FechaFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FechaFieldMouseClicked
-        JOptionPane.showMessageDialog(null, "Si deseas reservar una fecha, por favor haz clic en el ícono del calendario.", "Información de Reserva", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_FechaFieldMouseClicked
 
     private void SeguroFieldMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguroFieldMActionPerformed
