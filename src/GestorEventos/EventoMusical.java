@@ -48,7 +48,7 @@ public class EventoMusical extends EventosInfo {
         return aforo;
     }
 
-    public boolean setAforo(int aforo) {
+    public final boolean setAforo(int aforo) {
         if (aforo > AFORO_MAXIMO) {
             JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido de " + AFORO_MAXIMO + ". Por favor, introduce un nuevo valor.", "Crear Evento Deportivo", JOptionPane.WARNING_MESSAGE);
             return false;
@@ -74,7 +74,7 @@ public class EventoMusical extends EventosInfo {
         this.tipoMusica = tipoMusica;
     }
 
-    public double getImporteSeguro(double montoRenta) {
+    public final double getImporteSeguro(double montoRenta) {
         return  montoRenta * CUOTA_SEGURO / 100;
     }
 

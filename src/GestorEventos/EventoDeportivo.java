@@ -34,7 +34,7 @@ public class EventoDeportivo extends EventosInfo {
         return aforo;
     }
 
-    public boolean setAforo(int aforo) {
+    public final boolean setAforo(int aforo) {
         if (aforo > AFORO_MAXIMO) {
             JOptionPane.showMessageDialog(null, "El aforo indicado supera el límite establecido de " + AFORO_MAXIMO + ". Por favor, introduce un nuevo valor.", "Crear Evento Deportivo", JOptionPane.WARNING_MESSAGE);
             return false;
