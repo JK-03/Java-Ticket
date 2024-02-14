@@ -26,6 +26,8 @@ public abstract class EventosInfo {
         this.montoRenta = montoRenta;
     }
 
+    public abstract boolean setAforo(int aforo);
+    
     public String getCodigo() {
         return codigo;
     }
